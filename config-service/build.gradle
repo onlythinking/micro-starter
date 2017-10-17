@@ -1,0 +1,43 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.6.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath 'io.franzbecker:gradle-lombok:1.6'
+    }
+}
+
+group = 'sky233'
+apply plugin: 'spring-boot'
+apply plugin: 'docker'
+
+jar {
+    baseName = 'config-service'
+    archiveName = 'config-service.jar'
+}
+
+configurations{
+    compile.exclude module: "spring-boot-starter-tomcat"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Dalston.SR4"
+    }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
+    compile('org.springframework.cloud:spring-cloud-config-server')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+

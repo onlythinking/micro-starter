@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8888
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+     config:
+        uri: http://configserver:8888
+        fail-fast: true

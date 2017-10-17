@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: configserver
+  cloud:
+    config:
+      enabled: true
+      server:
+        git:
+          uri: https://github.com/sky233/micro-starter-config.git
+          force-pull: true
+          basedir: build/config
+
+security:
+  user:
+    password: 123123
+    
+server:
+  port: ${PORT:8888}
+
+management:
+  security:
+    enabled: false

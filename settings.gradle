@@ -1,0 +1,6 @@
+rootProject.name = 'micro-starter'
+include 'registry-service'
+include 'config-service'
+include 'gateway-service'
+include 'monitoring-service'
+

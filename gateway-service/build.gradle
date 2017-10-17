@@ -1,0 +1,30 @@
+
+group = 'sky233'
+apply plugin: 'spring-boot'
+apply plugin: 'docker'
+
+jar {
+    baseName = 'gateway-service'
+    archiveName = "gateway-service.jar"
+}
+
+configurations{
+    compile.exclude module: "spring-boot-starter-tomcat"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Dalston.SR4"
+    }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
+    compile("org.springframework.retry:spring-retry")
+    compile("org.springframework.boot:spring-boot-starter-aop:${springBootVersion}")
+    compile("org.springframework.cloud:spring-cloud-starter-eureka")
+    compile('org.springframework.cloud:spring-cloud-starter-zuul')
+    compile("org.springframework.cloud:spring-cloud-starter-config")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
