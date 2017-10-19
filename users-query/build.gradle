@@ -1,0 +1,16 @@
+group = 'sky233'
+
+jar {
+    baseName = 'users-query'
+    archiveName = 'users-query.jar'
+}
+
+def axonframeworkVersion = '3.0.4'
+
+dependencies {
+    project(":users-api")
+    compile("org.axonframework:axon-spring-boot-starter:${axonframeworkVersion}")
+    compile("org.axonframework:axon-amqp:${axonframeworkVersion}")
+    testCompile("org.axonframework:axon-test:${axonframeworkVersion}")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}

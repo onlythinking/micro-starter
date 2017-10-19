@@ -27,12 +27,16 @@ subprojects {
 
     repositories {
         mavenLocal()
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 
 //        maven { url 'http://repo.spring.io/libs-snapshot' }
 //        maven { url 'http://oss.sonatype.org/content/groups/public' }
 //        maven { url 'http://repo.spring.io/libs-snapshot' }
 
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
     }
 
 }

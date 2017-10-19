@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: command-users
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8888
+      label: axon3-boot
+      
+---
+
+spring:
+  profiles: docker
+  cloud:
+     config:
+        uri: http://configserver:8888
+        fail-fast: true
