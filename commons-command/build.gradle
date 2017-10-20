@@ -1,0 +1,17 @@
+group = 'sky233'
+
+jar {
+    baseName = 'commons-command'
+    archiveName = 'commons-command.jar'
+}
+
+dependencies {
+    compile(
+            "org.axonframework:axon-spring-boot-starter:${axonframeworkVersion}",
+            "org.axonframework:axon-amqp:${axonframeworkVersion}",
+
+    )
+    testCompile(
+            "org.axonframework:axon-test:${axonframeworkVersion}"
+    )
+}

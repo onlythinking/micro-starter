@@ -5,12 +5,15 @@ jar {
     archiveName = 'users-command.jar'
 }
 
-def axonframeworkVersion = '3.0.4'
-
 dependencies {
-    project(":users-api")
-    compile("org.axonframework:axon-spring-boot-starter:${axonframeworkVersion}")
-    compile("org.axonframework:axon-amqp:${axonframeworkVersion}")
-    testCompile("org.axonframework:axon-test:${axonframeworkVersion}")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile(
+            project(":users-api"),
+            project(":commons-command"),
+            "org.axonframework:axon-spring-boot-starter:${axonframeworkVersion}",
+            "org.axonframework:axon-amqp:${axonframeworkVersion}"
+    )
+    testCompile(
+            "org.axonframework:axon-test:${axonframeworkVersion}",
+            "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    )
 }

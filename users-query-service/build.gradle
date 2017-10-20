@@ -13,14 +13,16 @@ dependencyManagement {
     }
 }
 
-def axonframeworkVersion = '3.0.4'
-
 dependencies {
-    project(":users-command")
-    compile("org.springframework.cloud:spring-cloud-starter-eureka")
-    compile("org.axonframework:axon-spring-boot-starter:${axonframeworkVersion}")
-    compile("org.axonframework:axon-amqp:${axonframeworkVersion}")
-    testCompile("org.axonframework:axon-test:${axonframeworkVersion}")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-//    compile('org.springframework.cloud:spring-cloud-config-client')
+    compile(
+            project(":users-query"),
+            "org.axonframework:axon-spring-boot-starter:${axonframeworkVersion}",
+            "org.axonframework:axon-amqp:${axonframeworkVersion}",
+            "org.springframework.cloud:spring-cloud-starter-eureka",
+//            "org.springframework.cloud:spring-cloud-config-client"
+    )
+    testCompile(
+            "org.axonframework:axon-test:${axonframeworkVersion}",
+            "org.springframework.boot:spring-boot-starter-test"
+    )
 }

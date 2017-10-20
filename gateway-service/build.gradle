@@ -19,12 +19,16 @@ dependencyManagement {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
-    compile("org.springframework.retry:spring-retry")
-    compile("org.springframework.boot:spring-boot-starter-aop:${springBootVersion}")
-    compile("org.springframework.cloud:spring-cloud-starter-eureka")
-    compile('org.springframework.cloud:spring-cloud-starter-zuul')
-    compile("org.springframework.cloud:spring-cloud-starter-config")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile(
+            "org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}",
+            "org.springframework.retry:spring-retry",
+            "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}",
+            "org.springframework.cloud:spring-cloud-starter-eureka",
+            "org.springframework.cloud:spring-cloud-starter-zuul",
+            "org.springframework.cloud:spring-cloud-starter-config"
+    )
+    testCompile(
+            'org.springframework.boot:spring-boot-starter-test'
+    )
 }
 

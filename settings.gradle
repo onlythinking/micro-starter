@@ -1,11 +1,17 @@
 rootProject.name = 'micro-starter'
-include 'registry-service'
 include 'config-service'
+include 'registry-service'
 include 'gateway-service'
 include 'monitoring-service'
+
+include 'commons-api'
+include 'commons-command'
+include 'commons-query'
+
 include 'users-api'
 include 'users-command'
 include 'users-command-service'
 include 'users-query'
 include 'users-query-service'
+
 

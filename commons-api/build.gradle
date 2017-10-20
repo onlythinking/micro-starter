@@ -1,0 +1,16 @@
+group = 'sky233'
+
+jar {
+    baseName = 'commons-api'
+    archiveName = 'commons-api.jar'
+}
+
+dependencies {
+    compileOnly(
+            "org.projectlombok:lombok:${lombokVersion}"
+    )
+    compile(
+            "org.apache.commons:commons-lang3:${commonsLangVersion}",
+            "com.google.guava:guava:${guavaVersion}"
+    )
+}

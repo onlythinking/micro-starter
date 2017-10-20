@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Li Xingping
  */
+@SuppressWarnings("unchecked")
 @Configuration
 public class AxonConfiguration {
 

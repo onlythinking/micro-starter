@@ -1,11 +1,12 @@
 group = 'sky233'
 
-
 jar {
     baseName = 'users-api'
     archiveName = 'users-api.jar'
 }
 
 dependencies {
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile(
+            project(":commons-api")
+    )
 }

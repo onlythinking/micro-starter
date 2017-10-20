@@ -1,18 +1,16 @@
 group = 'sky233'
 
 jar {
-    baseName = 'users-query'
-    archiveName = 'users-query.jar'
+    baseName = 'commons-query'
+    archiveName = 'commons-query.jar'
 }
 
 dependencies {
     compile(
-            project(":users-api"),
-            project(":commons-query"),
             "org.axonframework:axon-spring-boot-starter:${axonframeworkVersion}",
             "org.axonframework:axon-amqp:${axonframeworkVersion}"
     )
     testCompile(
-            "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+            "org.axonframework:axon-test:${axonframeworkVersion}"
     )
 }
