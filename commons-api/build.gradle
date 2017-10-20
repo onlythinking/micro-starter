@@ -11,6 +11,8 @@ dependencies {
     )
     compile(
             "org.apache.commons:commons-lang3:${commonsLangVersion}",
-            "com.google.guava:guava:${guavaVersion}"
+            "javax.validation:validation-api:${validationVersion}",
+            "org.hibernate:hibernate-validator:${hibernateValidationVersion}",
+            "com.google.guava:guava:${guavaVersion}",
     )
 }

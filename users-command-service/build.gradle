@@ -17,8 +17,17 @@ dependencies {
     compile(
             project(":users-command"),
             "org.axonframework:axon-spring-boot-starter:${axonframeworkVersion}",
+            "org.axonframework:axon-distributed-commandbus-springcloud:${axonframeworkVersion}",
             "org.axonframework:axon-amqp:${axonframeworkVersion}",
+            "mysql:mysql-connector-java:${mysqlVersion}",
+            "com.thoughtworks.xstream:xstream:${xstreamVersion}",
+            "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-amqp:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}",
             "org.springframework.cloud:spring-cloud-starter-eureka",
+            "org.springframework.cloud:spring-cloud-starter-hystrix",
+            "org.springframework.cloud:spring-cloud-starter-turbine",
 //            "org.springframework.cloud:spring-cloud-config-client"
     )
     testCompile(

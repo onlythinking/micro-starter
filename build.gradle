@@ -6,7 +6,11 @@ buildscript {
         guavaVersion = '19.0'
         axonframeworkVersion = '3.0.4'
         lombokVersion = "1.16.18"
-        hikariCPVersion="2.6.1"
+        hikariCPVersion = "2.6.1"
+        mysqlVersion = "5.1.41"
+        validationVersion = "1.1.0.Final"
+        hibernateValidationVersion = "5.2.4.Final"
+        xstreamVersion = "1.4.9"
     }
     repositories {
         mavenCentral()

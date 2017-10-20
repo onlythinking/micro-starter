@@ -14,14 +14,13 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Li Xingping
  */
-@SuppressWarnings("unchecked")
 @Configuration
 public class AxonConfiguration {
 
   @Bean
   CommandBus commandBus(TransactionManager transactionManager) {
     SimpleCommandBus commandBus = new SimpleCommandBus(transactionManager, NoOpMessageMonitor.INSTANCE);
-    commandBus.registerDispatchInterceptor(new BeanValidationInterceptor());
+    commandBus.registerDispatchInterceptor(new BeanValidationInterceptor<>());
     return commandBus;
   }
 }
