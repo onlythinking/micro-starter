@@ -16,18 +16,19 @@ logging:
 axon:
   amqp:
     exchange: users.events.fanout.exchange
-#    queue: users.default.queue
-#    databaseName: users
-#    eventsCollectionName: events
-#    snapshotCollectionName: snapshots
+  eventhandling:
+    processors:
+      name:
+        mode: tracking
+        source: eventBus
 
 spring:
-#  application:
-#    exchange: users.events.fanout.exchange
-#    queue: users.default.queue
-#    databaseName: users
-#    eventsCollectionName: events
-#    snapshotCollectionName: snapshots
+  application:
+    exchange: users.events.fanout.exchange
+    queue: users.default.queue
+    databaseName: users
+    eventsCollectionName: events
+    snapshotCollectionName: snapshots
   rabbitmq:
     host: 127.0.0.1
     username: guest

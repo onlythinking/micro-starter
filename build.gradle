@@ -4,7 +4,7 @@ buildscript {
         lombokVersion = "1.16.18"
         commonsLangVersion = "3.6"
         guavaVersion = '19.0'
-        axonframeworkVersion = '3.0.4'
+        axonframeworkVersion = '3.0.6'
         lombokVersion = "1.16.18"
         hikariCPVersion = "2.6.1"
         mysqlVersion = "5.1.41"

@@ -5,7 +5,9 @@ import com.believe.command.users.command.CreateUsersCommand;
 import lombok.Data;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
+import org.axonframework.commandhandling.model.AggregateRoot;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.spring.stereotype.Aggregate;
 
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 
@@ -14,6 +16,7 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
  *
  * @author Li Xingping
  */
+@Aggregate
 @Data
 public class UsersAggregate {
 
