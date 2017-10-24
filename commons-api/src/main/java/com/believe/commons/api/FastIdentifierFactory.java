@@ -16,7 +16,7 @@ public class FastIdentifierFactory extends IdentifierFactory {
    */
   @Override
   public String generateIdentifier() {
-    return UUID.randomUUID().toString();
+    return UUID.randomUUID().toString().replace("-", "");
   }
 
 }

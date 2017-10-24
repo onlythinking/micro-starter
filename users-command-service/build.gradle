@@ -24,6 +24,8 @@ dependencies {
             "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
             "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
             "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
+            "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}",
+            "com.fasterxml.jackson.module:jackson-module-guice:${jacksonVersion}",
             "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-amqp:${springBootVersion}",

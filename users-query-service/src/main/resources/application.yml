@@ -43,9 +43,9 @@ spring:
 
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/users?useSSL=false&useUnicode=true&amp;characterEncoding=UTF-8
-    username: users
-    password: users
+    url: jdbc:mysql://127.0.0.1:3306/microservice?useSSL=false&useUnicode=true&amp;characterEncoding=UTF-8
+    username: micro
+    password: micro
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       pool-name: Hikari-pool
