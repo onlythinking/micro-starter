@@ -1,0 +1,67 @@
+info:
+  app:
+    name: Users service - Query Side
+    description: Users service - Query Side (CQRS)
+
+server:
+  port: ${PORT:8081}
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.axonframework: DEBUG
+    com.believe: DEBUG
+
+axon:
+    eventhandling:
+      processors:
+        users:
+          source: messageSourceUsers
+
+spring:
+  application:
+    exchange: users.events.fanout.exchange
+    queue: users.default.queue
+  rabbitmq:
+    host: 127.0.0.1
+    username: guest
+    password: guest
+  jpa:
+    properties:
+      format-sql: true
+      cache:
+        use_query_cache: true
+        default_cache_concurrency_strategy: READ_WRITE
+      generate-statistics: false
+      dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        strategy: org.hibernate.cfg.EJB3NamingStrategy
+
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/users?useSSL=false&useUnicode=true&amp;characterEncoding=UTF-8
+    username: users
+    password: users
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      pool-name: Hikari-pool
+      connection-timeout: 60000
+      max-lifetime: 5
+      maximum-pool-size: 5
+
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+
+---
+spring:
+  profiles: docker
+  rabbitmq:
+    host: my-rabbit
+    username: test
+    password: password

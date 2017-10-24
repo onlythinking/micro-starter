@@ -7,12 +7,14 @@ import org.axonframework.mongo.eventsourcing.eventstore.DefaultMongoTemplate;
 import org.axonframework.mongo.eventsourcing.eventstore.MongoEventStorageEngine;
 import org.axonframework.mongo.eventsourcing.eventstore.MongoTemplate;
 
+import org.axonframework.mongo.eventsourcing.eventstore.documentperevent.DocumentPerEventStorageStrategy;
+import org.axonframework.serialization.Serializer;
+import org.axonframework.serialization.json.JacksonSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.PlatformTransactionManager;
 
 /**
  * <p> Users aggregate entity </p>
@@ -24,10 +26,6 @@ public class AxonConfiguration {
 
   @Autowired
   public MongoClient mongoClient;
-
-  @Autowired
-  @Qualifier("rabbitTransactionManager")
-  public PlatformTransactionManager transactionManager;
 
   @Value("${spring.application.queue}")
   private String queueName;
@@ -49,10 +47,10 @@ public class AxonConfiguration {
 //    return new XStreamSerializer();
 //  }
 
-//  @Bean
-//  JacksonSerializer axonJsonSerializer() {
-//    return new JacksonSerializer();
-//  }
+  @Bean
+  Serializer serializer() {
+    return new JacksonSerializer();
+  }
 
   @Autowired
   public void configure(@Qualifier("localSegment") SimpleCommandBus simpleCommandBus) {
@@ -67,7 +65,7 @@ public class AxonConfiguration {
 
   @Bean(name = "axonMongoEventStorageEngine")
   MongoEventStorageEngine mongoEventStorageEngine() {
-    return new MongoEventStorageEngine(axonMongoTemplate());
+    return new MongoEventStorageEngine(serializer(), null, axonMongoTemplate(), new DocumentPerEventStorageStrategy());
   }
 
 }

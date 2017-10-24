@@ -14,5 +14,6 @@ dependencies {
             "javax.validation:validation-api:${validationVersion}",
             "org.hibernate:hibernate-validator:${hibernateValidationVersion}",
             "com.google.guava:guava:${guavaVersion}",
+            "org.axonframework:axon-core:${axonframeworkVersion}"
     )
 }

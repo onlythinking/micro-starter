@@ -11,7 +11,7 @@ logging:
     root: INFO
     org.springframework: INFO
     org.axonframework: DEBUG
-    com.idugalic: DEBUG
+    com.believe: DEBUG
 
 axon:
   amqp:
@@ -37,10 +37,10 @@ spring:
     mongodb:
       uri: mongodb://127.0.0.1:27017/users
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
 
 ---
 spring:
@@ -51,4 +51,4 @@ spring:
     password: password
   data:
     mongodb:
-      uri: mongodb://my-mongo:27017/blogposts
+      uri: mongodb://my-mongo:27017/users

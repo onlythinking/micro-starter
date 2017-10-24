@@ -11,9 +11,11 @@ buildscript {
         validationVersion = "1.1.0.Final"
         hibernateValidationVersion = "5.2.4.Final"
         xstreamVersion = "1.4.9"
+        jacksonVersion = "2.8.7"
     }
     repositories {
         mavenCentral()
+//        maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin/' }
         maven { url 'https://plugins.gradle.org/m2/' }
         maven { url 'http://repo.spring.io/libs-snapshot' }
     }
