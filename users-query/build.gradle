@@ -1,5 +1,4 @@
-apply plugin: 'idea'
-apply plugin: 'io.franzbecker.gradle-lombok'
+//apply plugin: 'io.franzbecker.gradle-lombok'
 
 group = 'sky233'
 
@@ -8,7 +7,7 @@ jar {
     archiveName = 'users-query.jar'
 }
 
-sourceSets {
+/*sourceSets {
     generated {
         java {
             srcDirs = ['src/main/generated']
@@ -18,7 +17,7 @@ sourceSets {
 
 configurations {
     querydslapt
-}
+}*/
 
 dependencies {
     compile(
@@ -30,14 +29,14 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}",
             "com.mysema.querydsl:querydsl-jpa:${querydslVersion}"
     )
-    compileOnly("org.projectlombok:lombok:${lombokVersion}")
-    querydslapt("com.mysema.querydsl:querydsl-apt:${querydslVersion}")
+/*    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    querydslapt("com.mysema.querydsl:querydsl-apt:${querydslVersion}")*/
     testCompile(
             "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     )
 }
 
-task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
+/*task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
     source = sourceSets.main.java
     classpath = configurations.compile + configurations.querydslapt
     options.compilerArgs = [
@@ -60,10 +59,4 @@ compileGeneratedJava {
 
 clean {
     delete sourceSets.generated.java.srcDirs
-}
-
-idea {
-    module {
-        sourceDirs += file('generated/')
-    }
-}
+}*/
