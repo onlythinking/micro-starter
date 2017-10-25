@@ -1,3 +1,6 @@
+apply plugin: 'idea'
+apply plugin: 'io.franzbecker.gradle-lombok'
+
 group = 'sky233'
 
 jar {
@@ -5,12 +8,73 @@ jar {
     archiveName = 'commons-query.jar'
 }
 
+sourceSets {
+    generated {
+        java {
+            srcDirs = ['src/main/generated']
+        }
+    }
+}
+
+configurations {
+    querydslapt
+}
+
+//dependencyManagement {
+//    imports {
+//        mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+//    }
+//}
+
 dependencies {
     compile(
             "org.axonframework:axon-spring-boot-starter:${axonframeworkVersion}",
-            "org.axonframework:axon-amqp:${axonframeworkVersion}"
+            "org.axonframework:axon-amqp:${axonframeworkVersion}",
+            "org.hibernate:hibernate-java8:${hibernateVersion}",
+//            "joda-time:joda-time:${jodaVersion}",
+//            "org.hibernate.javax.persistence:hibernate-jpa-2.0-api:${jpaPersistenceVersion}",
+            "javax.validation:validation-api:${validationVersion}",
+            "org.hibernate:hibernate-validator:${hibernateValidationVersion}",
+            "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}",
+            "com.mysema.querydsl:querydsl-core:${querydslVersion}",
+            "com.mysema.querydsl:querydsl-collections:${querydslVersion}",
+            "com.mysema.querydsl:querydsl-jpa:${querydslVersion}"
     )
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    querydslapt("com.mysema.querydsl:querydsl-apt:${querydslVersion}")
     testCompile(
             "org.axonframework:axon-test:${axonframeworkVersion}"
     )
+}
+
+task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
+    source = sourceSets.main.java
+    classpath = configurations.compile + configurations.querydslapt
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor", 'com.mysema.query.apt.jpa.JPAAnnotationProcessor,lombok.launch.AnnotationProcessorHider$AnnotationProcessor'
+    ]
+    destinationDir = sourceSets.generated.java.srcDirs.iterator().next()
+}
+
+compileJava {
+    dependsOn generateQueryDSL
+    source generateQueryDSL.destinationDir
+}
+
+compileGeneratedJava {
+    dependsOn generateQueryDSL
+    options.warnings = false
+    classpath += sourceSets.main.runtimeClasspath
+}
+
+clean {
+    delete sourceSets.generated.java.srcDirs
+}
+
+idea {
+    module {
+        sourceDirs += file('generated/')
+    }
 }

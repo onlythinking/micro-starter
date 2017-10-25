@@ -1,8 +1,23 @@
+apply plugin: 'idea'
+apply plugin: 'io.franzbecker.gradle-lombok'
+
 group = 'sky233'
 
 jar {
     baseName = 'users-query'
     archiveName = 'users-query.jar'
+}
+
+sourceSets {
+    generated {
+        java {
+            srcDirs = ['src/main/generated']
+        }
+    }
+}
+
+configurations {
+    querydslapt
 }
 
 dependencies {
@@ -13,8 +28,42 @@ dependencies {
             "org.axonframework:axon-amqp:${axonframeworkVersion}",
             "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}",
+            "com.mysema.querydsl:querydsl-jpa:${querydslVersion}"
     )
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    querydslapt("com.mysema.querydsl:querydsl-apt:${querydslVersion}")
     testCompile(
             "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     )
+}
+
+task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
+    source = sourceSets.main.java
+    classpath = configurations.compile + configurations.querydslapt
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor", 'com.mysema.query.apt.jpa.JPAAnnotationProcessor,lombok.launch.AnnotationProcessorHider$AnnotationProcessor'
+    ]
+    destinationDir = sourceSets.generated.java.srcDirs.iterator().next()
+}
+
+compileJava {
+    dependsOn generateQueryDSL
+    source generateQueryDSL.destinationDir
+}
+
+compileGeneratedJava {
+    dependsOn generateQueryDSL
+    options.warnings = false
+    classpath += sourceSets.main.runtimeClasspath
+}
+
+clean {
+    delete sourceSets.generated.java.srcDirs
+}
+
+idea {
+    module {
+        sourceDirs += file('generated/')
+    }
 }

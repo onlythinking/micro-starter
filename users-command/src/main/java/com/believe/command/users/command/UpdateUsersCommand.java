@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
  * @author Li Xingping
  */
 @Data
-public class CreateUsersCommand {
+public class UpdateUsersCommand {
 
   @NotNull
   @TargetAggregateIdentifier
@@ -21,9 +21,9 @@ public class CreateUsersCommand {
   @NotBlank
   private final String username;
 
-  public CreateUsersCommand(String username) {
+  public UpdateUsersCommand(String id, String username) {
     this.username = username;
-    this.id = new UsersId();
+    this.id = new UsersId(id);
   }
 
 }

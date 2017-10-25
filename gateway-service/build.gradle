@@ -14,15 +14,18 @@ configurations{
 
 dependencyManagement {
     imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Dalston.SR4"
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+    }
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
     }
 }
 
 dependencies {
     compile(
-            "org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-jetty",
             "org.springframework.retry:spring-retry",
-            "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-aop",
             "org.springframework.cloud:spring-cloud-starter-eureka",
             "org.springframework.cloud:spring-cloud-starter-zuul",
             "org.springframework.cloud:spring-cloud-starter-config"

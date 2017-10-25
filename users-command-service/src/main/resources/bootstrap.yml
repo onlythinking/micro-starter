@@ -5,8 +5,7 @@ spring:
     config:
       enabled: true
       uri: http://localhost:8888
-      label: axon3-boot
-      
+
 ---
 
 spring:

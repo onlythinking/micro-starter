@@ -1,6 +1,7 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.4.RELEASE'
+        springBootVersion = "1.5.4.RELEASE"
+        springCloudVersion = "Dalston.SR4"
         lombokVersion = "1.16.18"
         commonsLangVersion = "3.6"
         guavaVersion = '19.0'
@@ -12,6 +13,10 @@ buildscript {
         hibernateValidationVersion = "5.2.4.Final"
         xstreamVersion = "1.4.9"
         jacksonVersion = "2.8.7"
+        jpaPersistenceVersion = "1.0.1.Final"
+        jodaVersion = "2.8.2"
+        querydslVersion = "3.6.4"
+        hibernateVersion = "5.0.12.Final"
     }
     repositories {
         mavenCentral()

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author Li Xingping
  */
 @Value
-public class UsersCreatedEvent implements Serializable {
+public class UsersUpdatedEvent implements Serializable {
 
   private final UsersId id;
   private final String username;

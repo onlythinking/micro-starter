@@ -1,25 +1,26 @@
 package com.believe.query.users.domain;
 
+import com.believe.commons.query.model.Domain;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 
 /**
- * <p> The describe </p>
+ * <p> The users entity </p>
  *
  * @author Li Xingping
  */
 @Data
 @Entity
 @Table(name = "users")
-public class Users {
+@EqualsAndHashCode(callSuper = true)
+@ToString
+public class Users extends Domain<String> {
 
-  @Id
-  @GeneratedValue
-  private Long id;
-
-  private Long version;
-
+  @NotBlank
   @Column(unique = true, nullable = false)
   private String username;
 }

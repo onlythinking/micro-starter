@@ -9,7 +9,10 @@ jar {
 
 dependencyManagement {
     imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Dalston.SR4"
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+    }
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
     }
 }
 
@@ -26,14 +29,14 @@ dependencies {
             "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
             "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}",
             "com.fasterxml.jackson.module:jackson-module-guice:${jacksonVersion}",
-            "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
-            "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}",
-            "org.springframework.boot:spring-boot-starter-amqp:${springBootVersion}",
-            "org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-web",
+            "org.springframework.boot:spring-boot-starter-actuator",
+            "org.springframework.boot:spring-boot-starter-amqp",
+            "org.springframework.boot:spring-boot-starter-data-mongodb",
             "org.springframework.cloud:spring-cloud-starter-eureka",
             "org.springframework.cloud:spring-cloud-starter-hystrix",
             "org.springframework.cloud:spring-cloud-starter-turbine",
-//            "org.springframework.cloud:spring-cloud-config-client"
+            "org.springframework.cloud:spring-cloud-config-client"
     )
     testCompile(
             "org.axonframework:axon-test:${axonframeworkVersion}",
