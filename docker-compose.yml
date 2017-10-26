@@ -25,11 +25,11 @@ services:
     environment:
      - RABBITMQ_DEFAULT_USER=micro
      - RABBITMQ_DEFAULT_PASS=micro
-  config:
+  configserver:
     build:
         context: ./config-service/build/docker
     image: sky233/config-service
-    container_name: config
+    container_name: configserver
     ports:
      - "8888:8888"
     environment:
@@ -43,6 +43,8 @@ services:
      - "8761:8761"
     environment:
      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+     - configserver
   gateway:
     build:
         context: ./gateway-service/build/docker
@@ -54,7 +56,7 @@ services:
      - SPRING_PROFILES_ACTIVE=docker
     depends_on:
      - registry
-     - config
+     - configserver
   users-command-side:
     build:
         context: ./users-command-service/build/docker
@@ -64,7 +66,7 @@ services:
      - mongodb
      - rabbitmq
      - registry
-     - config
+     - configserver
     ports:
       - "8880"
     environment:
@@ -78,7 +80,7 @@ services:
      - mysql
      - rabbitmq
      - registry
-     - config
+     - configserver
     ports:
      - "8881"
     environment:
