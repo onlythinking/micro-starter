@@ -20,3 +20,16 @@ server:
 management:
   security:
     enabled: false
+
+---
+
+spring:
+  profiles: prod
+  cloud:
+    config:
+      enabled: true
+      server:
+        git:
+          uri: https://github.com/sky233/micro-starter-config.git
+          force-pull: true
+          basedir: build/config

@@ -1,7 +1,7 @@
 package com.believe.commons.api;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
@@ -13,6 +13,7 @@ import java.util.UUID;
  * @author Li Xingping
  */
 @Getter
+@EqualsAndHashCode
 public abstract class IdIdentifier implements Serializable {
 
   @NotBlank

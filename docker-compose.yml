@@ -1,0 +1,79 @@
+version: '3.1'
+services:
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "micro_root"
+      MYSQL_DATABASE: "microservice"
+      MYSQL_USER: "micro"
+      MYSQL_PASSWORD: "micro"
+  mongodb:
+    image: mongo:2.4
+    container_name: mongodb
+    ports:
+     - "27017:27017"
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+     - "5672:5672"
+     - "15672:15672"
+    environment:
+     - RABBITMQ_DEFAULT_USER=micro
+     - RABBITMQ_DEFAULT_PASS=micro
+  config:
+    build:
+        context: ./config-service/build/docker
+    image: sky233/config-service
+    container_name: config
+    ports:
+     - "8888:8888"
+  registry:
+    build:
+        context: ./registry-service/build/docker
+    image: sky233/registry-service
+    container_name: registry
+    ports:
+     - "8761:8761"
+  gateway:
+    build:
+        context: ./gateway-service/build/docker
+    image: sky233/gateway-service
+    container_name: gateway
+    ports:
+     - "8080:8080"
+    depends_on:
+     - registry
+     - config
+  users-command-side:
+    build:
+        context: ./users-command-service/build/docker
+    image: sky233/users-command-service:latest
+    container_name: users-command-side
+    depends_on:
+     - mongodb
+     - rabbitmq
+     - registry
+     - config
+    ports:
+      - "8880"
+  users-query-side:
+    build:
+        context: ./users-query-service/build/docker
+    image: sky233/users-query-service:latest
+    container_name: users-query-side
+    depends_on:
+     - mysql
+     - rabbitmq
+     - registry
+     - config
+    ports:
+     - "8881"
+
+volumes:
+  mysql_data:
+    driver: local

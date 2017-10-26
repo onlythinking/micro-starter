@@ -1,6 +1,7 @@
 group = 'sky233'
 
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
 
 jar {
     baseName = 'users-command-service'
@@ -45,4 +46,22 @@ dependencies {
     testCompile(
             "org.springframework.boot:spring-boot-starter-test"
     )
+}
+
+docker {
+    baseImage jar.baseName
+    maintainer 'Li Xingping "lixingping233@gmail.com"'
+}
+
+task image(type: Docker, dependsOn: build) {
+    push = false
+    dryRun = true
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
 }
