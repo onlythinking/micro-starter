@@ -12,7 +12,7 @@ services:
       MYSQL_USER: "micro"
       MYSQL_PASSWORD: "micro"
   mongodb:
-    image: mongo:2.4
+    image: mongo:3.2
     container_name: mongodb
     ports:
      - "27017:27017"
