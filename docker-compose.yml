@@ -8,18 +8,18 @@ services:
     ports:
      - "8080:8080"
     depends_on:
-     - configserver
      - registry
+     - configserver
   users-command-side:
     build:
         context: ./users-command-service/build/docker
     image: sky233/users-command-service:latest
     container_name: users-command-side
     depends_on:
-     - configserver
      - mongodb
      - rabbitmq
      - registry
+     - configserver
     ports:
       - "8880"
   users-query-side:
@@ -28,10 +28,10 @@ services:
     image: sky233/users-query-service:latest
     container_name: users-query-side
     depends_on:
-     - configserver
      - mysql
      - rabbitmq
      - registry
+     - configserver
     ports:
      - "8881"
   registry:
