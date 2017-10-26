@@ -1,5 +1,57 @@
 version: '3.1'
 services:
+  gateway:
+    build:
+        context: ./gateway-service/build/docker
+    image: sky233/gateway-service
+    container_name: gateway
+    ports:
+     - "8080:8080"
+    depends_on:
+     - configserver
+     - registry
+  users-command-side:
+    build:
+        context: ./users-command-service/build/docker
+    image: sky233/users-command-service:latest
+    container_name: users-command-side
+    depends_on:
+     - configserver
+     - mongodb
+     - rabbitmq
+     - registry
+    ports:
+      - "8880"
+  users-query-side:
+    build:
+        context: ./users-query-service/build/docker
+    image: sky233/users-query-service:latest
+    container_name: users-query-side
+    depends_on:
+     - configserver
+     - mysql
+     - rabbitmq
+     - registry
+    ports:
+     - "8881"
+  registry:
+    build:
+        context: ./registry-service/build/docker
+    image: sky233/registry-service
+    container_name: registry
+    ports:
+     - "8761:8761"
+    depends_on:
+     - configserver
+  configserver:
+    build:
+        context: ./config-service/build/docker
+    image: sky233/config-service
+    container_name: configserver
+    ports:
+     - "8888:8888"
+    environment:
+     - SPRING_PROFILES_ACTIVE=prod
   mysql:
     image: mysql:5.7
     volumes:
@@ -25,58 +77,6 @@ services:
     environment:
      - RABBITMQ_DEFAULT_USER=micro
      - RABBITMQ_DEFAULT_PASS=micro
-  configserver:
-    build:
-        context: ./config-service/build/docker
-    image: sky233/config-service
-    container_name: configserver
-    ports:
-     - "8888:8888"
-    environment:
-     - SPRING_PROFILES_ACTIVE=prod
-  registry:
-    build:
-        context: ./registry-service/build/docker
-    image: sky233/registry-service
-    container_name: registry
-    ports:
-     - "8761:8761"
-    depends_on:
-     - configserver
-  gateway:
-    build:
-        context: ./gateway-service/build/docker
-    image: sky233/gateway-service
-    container_name: gateway
-    ports:
-     - "8080:8080"
-    depends_on:
-     - registry
-     - configserver
-  users-command-side:
-    build:
-        context: ./users-command-service/build/docker
-    image: sky233/users-command-service:latest
-    container_name: users-command-side
-    depends_on:
-     - mongodb
-     - rabbitmq
-     - registry
-     - configserver
-    ports:
-      - "8880"
-  users-query-side:
-    build:
-        context: ./users-query-service/build/docker
-    image: sky233/users-query-service:latest
-    container_name: users-query-side
-    depends_on:
-     - mysql
-     - rabbitmq
-     - registry
-     - configserver
-    ports:
-     - "8881"
 
 volumes:
   mysql_data:
