@@ -1,48 +1,5 @@
 version: '3.1'
 services:
-  gateway:
-    build:
-        context: ./gateway-service/build/docker
-    image: sky233/gateway-service
-    container_name: gateway
-    ports:
-     - "8080:8080"
-    depends_on:
-     - registry
-     - configserver
-  users-command-side:
-    build:
-        context: ./users-command-service/build/docker
-    image: sky233/users-command-service:latest
-    container_name: users-command-side
-    depends_on:
-     - mongodb
-     - rabbitmq
-     - registry
-     - configserver
-    ports:
-      - "8880"
-  users-query-side:
-    build:
-        context: ./users-query-service/build/docker
-    image: sky233/users-query-service:latest
-    container_name: users-query-side
-    depends_on:
-     - mysql
-     - rabbitmq
-     - registry
-     - configserver
-    ports:
-     - "8881"
-  registry:
-    build:
-        context: ./registry-service/build/docker
-    image: sky233/registry-service
-    container_name: registry
-    ports:
-     - "8761:8761"
-    depends_on:
-     - configserver
   configserver:
     build:
         context: ./config-service/build/docker
@@ -52,6 +9,57 @@ services:
      - "8888:8888"
     environment:
      - SPRING_PROFILES_ACTIVE=prod
+  registry:
+    build:
+        context: ./registry-service/build/docker
+    image: sky233/registry-service
+    container_name: registry
+    ports:
+     - "8761:8761"
+    entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
+    command: java -Dspring.profiles.active=docker -jar /app.jar
+    depends_on:
+     - configserver
+  users-command-side:
+    build:
+        context: ./users-command-service/build/docker
+    image: sky233/users-command-service:latest
+    container_name: users-command-side
+    ports:
+      - "8880"
+    entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
+    command: java -Dspring.profiles.active=docker -jar /app.jar
+    depends_on:
+     - mongodb
+     - rabbitmq
+     - registry
+     - configserver
+  users-query-side:
+    build:
+        context: ./users-query-service/build/docker
+    image: sky233/users-query-service:latest
+    container_name: users-query-side
+    ports:
+     - "8881"
+    entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
+    command: java -Dspring.profiles.active=docker -jar /app.jar
+    depends_on:
+     - mysql
+     - rabbitmq
+     - registry
+     - configserver
+  gateway:
+    build:
+        context: ./gateway-service/build/docker
+    image: sky233/gateway-service
+    container_name: gateway
+    ports:
+     - "8080:8080"
+    entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
+    command: java -Dspring.profiles.active=docker -jar /app.jar
+    depends_on:
+     - registry
+     - configserver
   mysql:
     image: mysql:5.7
     volumes:
