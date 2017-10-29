@@ -18,7 +18,9 @@ dependencyManagement {
 
 dependencies {
     compile(
+            "org.springframework.boot:spring-boot-starter-actuator",
             "org.springframework.cloud:spring-cloud-starter-hystrix-dashboard",
+            "org.springframework.cloud:spring-cloud-starter-eureka",
             "org.springframework.cloud:spring-cloud-config-client"
     )
     testCompile(

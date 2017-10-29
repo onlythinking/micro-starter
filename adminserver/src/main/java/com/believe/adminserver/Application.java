@@ -1,27 +1,20 @@
-package com.believe.monitoring;
+package com.believe.adminserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import de.codecentric.boot.admin.config.EnableAdminServer;
 
 /**
- * <p> Monitoring service </p>
+ * <p> Micro application admin server </p>
  *
  * @author Li Xingping
  */
 @SpringBootApplication
+@EnableAdminServer
 @EnableDiscoveryClient
-@EnableHystrixDashboard
-@Controller
 public class Application {
-
-  @RequestMapping("/")
-  public String home() {
-    return "forward:/hystrix";
-  }
 
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);

@@ -3,11 +3,11 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
 
 jar {
-    baseName = 'gateway-service'
-    archiveName = "gateway-service.jar"
+    baseName = 'adminserver'
+    archiveName = 'adminserver.jar'
 }
 
-configurations{
+configurations {
     compile.exclude module: "spring-boot-starter-tomcat"
 }
 
@@ -23,16 +23,14 @@ dependencyManagement {
 dependencies {
     compile(
             "org.springframework.boot:spring-boot-starter-jetty",
-            "org.springframework.retry:spring-retry",
-            "org.springframework.boot:spring-boot-starter-aop",
+            "de.codecentric:spring-boot-admin-server:${adminVersion}",
+            "de.codecentric:spring-boot-admin-server-ui:${adminVersion}",
             "org.springframework.cloud:spring-cloud-starter-eureka",
             "org.springframework.cloud:spring-cloud-starter-config",
-            "org.springframework.cloud:spring-cloud-starter-zuul",
-            "org.springframework.cloud:spring-cloud-starter-hystrix",
-            "org.springframework.cloud:spring-cloud-starter-turbine"
+//            "de.codecentric:spring-boot-admin-example:${adminVersion}",
     )
     testCompile(
-            'org.springframework.boot:spring-boot-starter-test'
+            "org.springframework.boot:spring-boot-starter-test"
     )
 }
 
@@ -51,11 +49,6 @@ task image(type: Docker, dependsOn: build) {
             from jar
             into stageDir
         }
-        copy {
-            from('src/main/docker') {
-                include '**/*.sh'
-            }
-            into stageDir
-        }
     }
 }
+

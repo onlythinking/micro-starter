@@ -13,5 +13,5 @@ include 'users-command'
 include 'users-command-service'
 include 'users-query'
 include 'users-query-service'
-
+include 'adminserver'
 
