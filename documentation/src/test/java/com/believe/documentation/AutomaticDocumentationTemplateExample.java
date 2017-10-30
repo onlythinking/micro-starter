@@ -11,12 +11,14 @@ import com.structurizr.view.Shape;
 import com.structurizr.view.Styles;
 import com.structurizr.view.SystemContextView;
 import com.structurizr.view.ViewSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
 /**
  * An empty software architecture document based upon the Structurizr com.believe.documentation.template,
- * created with the com.believe.documentation.template.automatic document com.believe.documentation.template.
+ * created with the com.believe.documentation.automatic document com.believe.documentation.template.
  * <p>
  * See https://structurizr.com/share/35971/documentation for the live version.
  */

@@ -5,13 +5,36 @@ jar {
 }
 
 def structurizrVersion = '1.0.0-RC4'
+def swaggerVersion = '1.5.16'
+def springfoxVersion = '2.7.0'
+def restdocsVersion = '1.2.2.RELEASE'
 
 dependencies {
     compile(
+            project(":commons-api"),
+            "io.swagger:swagger-annotations:${swaggerVersion}",
+
+            "com.fasterxml.jackson.dataformat:jackson-dataformat-smile:${jacksonVersion}",
+            "com.fasterxml.jackson.module:jackson-module-afterburner:${jacksonVersion}",
+            "com.fasterxml.jackson.module:jackson-module-jsonSchema:${jacksonVersion}",
+
+            "io.springfox:springfox-swagger2:${springfoxVersion}",
+            "io.springfox:springfox-bean-validators:${springfoxVersion}",
+            "io.springfox:springfox-staticdocs:2.6.1",
+            "io.springfox:springfox-data-rest:${springfoxVersion}",
+            "io.springfox:springfox-swagger-ui:${springfoxVersion}",
+
+            "org.springframework.restdocs:spring-restdocs-asciidoctor:${restdocsVersion}",
+            "org.springframework.restdocs:spring-restdocs-mockmvc:${restdocsVersion}",
+
+            "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    )
+    testCompile(
+            project(":documentation"),
             "com.structurizr:structurizr-core:${structurizrVersion}",
             "com.structurizr:structurizr-annotations:${structurizrVersion}",
             "com.structurizr:structurizr-spring:${structurizrVersion}",
-            "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+            "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     )
 }
 

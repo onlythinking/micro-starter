@@ -1,0 +1,7 @@
+include::{generated}/overview.adoc[]
+include::manual_content1.adoc[]
+include::manual_content2.adoc[]
+include::manual_content3.adoc[]
+include::{generated}/paths.adoc[]
+include::{generated}/security.adoc[]
+include::{generated}/definitions.adoc[]

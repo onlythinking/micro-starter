@@ -1,7 +1,7 @@
 package com.believe.documentation;
 
-import lombok.extern.slf4j.Slf4j;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
@@ -27,9 +27,11 @@ import com.structurizr.view.ViewSet;
  *
  * @author Li Xingping
  */
-@Slf4j
 @SpringBootApplication
 public class DocumentationApplication {
+
+  private final static Logger log = LoggerFactory.getLogger(DocumentationApplication.class);
+
   private static final Long WORKSPACE_ID = 37489L;
 
   private static final String MICROSERVICE_TAG = "Microservice";

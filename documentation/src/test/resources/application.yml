@@ -1,0 +1,6 @@
+
+spring:
+  application:
+    structurizr:
+      apikey: 6e6063ea-9234-4b4b-8052-dfc0b9e0285e
+      apisecret: xxx
