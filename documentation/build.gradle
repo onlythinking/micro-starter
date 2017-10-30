@@ -1,0 +1,17 @@
+group = 'sky233'
+jar {
+    baseName = 'documentation-service'
+    archiveName = 'documentation-service.jar'
+}
+
+def structurizrVersion = '1.0.0-RC4'
+
+dependencies {
+    compile(
+            "com.structurizr:structurizr-core:${structurizrVersion}",
+            "com.structurizr:structurizr-annotations:${structurizrVersion}",
+            "com.structurizr:structurizr-spring:${structurizrVersion}",
+            "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    )
+}
+
