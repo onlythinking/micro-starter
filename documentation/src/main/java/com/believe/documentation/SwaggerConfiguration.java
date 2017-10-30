@@ -1,13 +1,12 @@
 package com.believe.documentation;
 
-import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import com.google.common.collect.Sets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StopWatch;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
@@ -16,21 +15,22 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.awt.print.Pageable;
 import java.util.Date;
 
-import static springfox.documentation.builders.PathSelectors.regex;
+import static springfox.documentation.builders.PathSelectors.ant;
 
 /**
  * @author Li Xingping
  */
+@SuppressWarnings("unchecked")
 @Configuration
 @EnableSwagger2
 @Import({
-  BeanValidatorPluginsConfiguration.class, SpringDataRestConfiguration.class
+  BeanValidatorPluginsConfiguration.class
 })
 public class SwaggerConfiguration {
 
@@ -39,13 +39,13 @@ public class SwaggerConfiguration {
   public static final String DEFAULT_INCLUDE_PATTERN = "/api/.*";
 
   @Bean
-  public Docket usersApiDocket() {
+  public Docket restApi() {
     log.debug("Starting Swagger");
     StopWatch watch = new StopWatch();
     watch.start();
     Docket docket = new Docket(DocumentationType.SWAGGER_2)
-      .produces(Sets.newHashSet("application/json; charset=UTF-8"))
-      .consumes(Sets.newHashSet("application/json; charset=UTF-8"))
+      .produces(Sets.newHashSet("application/json;charset=UTF-8"))
+      .consumes(Sets.newHashSet("application/json;charset=UTF-8"))
       .protocols(Sets.newHashSet("http", "https"))
       .apiInfo(apiInfo())
       .forCodeGeneration(true)
@@ -55,18 +55,27 @@ public class SwaggerConfiguration {
       .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
       .directModelSubstitute(java.time.ZonedDateTime.class, Date.class)
       .directModelSubstitute(java.time.LocalDateTime.class, Date.class)
-      .groupName("users-api")
+//      .groupName("users-api")
+//      .securitySchemes(asList(
+//        new OAuth(
+//          "petstore_auth",
+//          asList(new AuthorizationScope("write_pets", "modify pets in your account"),
+//            new AuthorizationScope("read_pets", "read your pets")),
+//          Arrays.<GrantType>asList(new ImplicitGrant(new LoginEndpoint("http://petstore.swagger.io/api/oauth/dialog"), "tokenName"))
+//        ),
+//        new ApiKey("api_key", "api_key", "header")
+//      ))
       .select()
       .apis(RequestHandlerSelectors.any())
-      .paths(usersPaths())
+      .paths(
+        Predicates.and(ant("/**"),
+          Predicates.not(ant("/error")),
+          Predicates.not(ant("/management/**")),
+          Predicates.not(ant("/management*"))))
       .build();
     watch.stop();
     log.debug("Started Swagger in {} ms", watch.getTotalTimeMillis());
     return docket;
-  }
-
-  private Predicate<String> usersPaths() {
-    return regex("/.*");
   }
 
   private ApiInfo apiInfo() {
