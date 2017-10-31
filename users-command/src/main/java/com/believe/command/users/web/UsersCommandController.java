@@ -6,9 +6,11 @@ import com.believe.command.users.web.dto.UserDto;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * <p> The describe </p>
@@ -16,20 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Li Xingping
  */
 @RestController
-@RequestMapping("/users")
 public class UsersCommandController {
 
   @Autowired
   private CommandGateway commandGateway;
 
   @PostMapping("/create")
-  public void create(@RequestBody UserDto userDto) {
+  public void create(@Valid @RequestBody UserDto userDto) {
     CreateUsersCommand command = new CreateUsersCommand(userDto.getUsername());
     commandGateway.sendAndWait(command);
   }
 
-  @PostMapping("/update")
-  public void update(@RequestBody UserDto userDto) {
+  @PutMapping("/update")
+  public void update(@Valid @RequestBody UserDto userDto) {
     UpdateUsersCommand command = new UpdateUsersCommand(userDto.getId(), userDto.getUsername());
     commandGateway.sendAndWait(command);
   }

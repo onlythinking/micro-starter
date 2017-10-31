@@ -1,7 +1,7 @@
 package com.believe.documentation.docs;
 
 import com.believe.documentation.ApiDocsApplication;
-import com.believe.documentation.SwaggerConfiguration;
+import com.believe.documentation.configuration.SwaggerConfiguration;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

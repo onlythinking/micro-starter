@@ -1,5 +1,6 @@
 package com.believe.commons.query.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -21,11 +22,13 @@ public abstract class Domain<ID extends Serializable> extends Model<ID> {
   @Column(nullable = false, name = "last_modified_date")
   private Instant lastModifiedDate;
 
+  @JsonIgnore
   @Version
   @Getter(AccessLevel.PRIVATE)
   @Setter(AccessLevel.PRIVATE)
   private long version;
 
+  @JsonIgnore
   @Column(nullable = false, name = "aggregate_version")
   private long aggregateVersion;
 

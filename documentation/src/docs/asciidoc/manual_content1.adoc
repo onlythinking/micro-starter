@@ -1,8 +1,9 @@
-== 手册内容简介
-改手册面向用户为开发人员 测试人员
+== Chapter of manual content 1
 
-=== 详细讲解
+This is some dummy text
 
-改手册面向用户为开发人员 测试人员
+=== Sub chapter
+
+Dummy text of sub chapter
 
 

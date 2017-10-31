@@ -10,6 +10,9 @@ dependencies {
             "org.projectlombok:lombok:${lombokVersion}"
     )
     compile(
+            "io.swagger:swagger-annotations:${swaggerVersion}",
+            "io.springfox:springfox-core:${springfoxVersion}",
+            "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
             "org.apache.commons:commons-lang3:${commonsLangVersion}",
             "javax.validation:validation-api:${validationVersion}",
             "org.hibernate:hibernate-validator:${hibernateValidationVersion}",

@@ -8,8 +8,8 @@ buildscript {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
         classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.10.1'
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
-        classpath 'io.github.swagger2markup:swagger2markup-spring-restdocs-ext:1.2.0'
-        classpath 'io.github.swagger2markup:swagger2markup-gradle-plugin:1.2.0'
+        classpath 'io.github.swagger2markup:swagger2markup-spring-restdocs-ext:1.3.1'
+        classpath 'io.github.swagger2markup:swagger2markup-gradle-plugin:1.3.1'
         classpath "org.ajoberstar:gradle-git:1.7.2"
     }
 }
@@ -70,12 +70,13 @@ dependencyManagement {
 
 def structurizrVersion = '1.0.0-RC4'
 def swaggerVersion = '1.5.16'
-def springfoxVersion = '2.5.0'
+def springfoxVersion = '2.7.0'
 def restdocsVersion = '1.2.2.RELEASE'
 
 dependencies {
     compile(
             project(":commons-api"),
+            project(":users-command"),
             project(":users-query"),
             "io.swagger:swagger-annotations:${swaggerVersion}",
             "com.h2database:h2",
@@ -87,11 +88,12 @@ dependencies {
 
             "io.springfox:springfox-swagger2:${springfoxVersion}",
             "io.springfox:springfox-bean-validators:${springfoxVersion}",
-            "io.springfox:springfox-staticdocs:${springfoxVersion}",
-//            "io.springfox:springfox-data-rest:2.7.0",
-            "io.springfox:springfox-swagger-ui:${springfoxVersion}",
+            "io.springfox:springfox-staticdocs:2.6.1",
+            "io.springfox:springfox-data-rest:${springfoxVersion}",
+            "io.springfox:springfox-swagger-ui:2.5.0",
 
             "org.springframework.restdocs:spring-restdocs-asciidoctor:${restdocsVersion}",
+            "io.github.swagger2markup:swagger2markup-spring-restdocs-ext:1.3.1",
 
 //            "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
@@ -117,6 +119,7 @@ convertSwagger2markup {
     swaggerInput "${swaggerOutputDir}/swagger.json"
     outputDir asciiDocOutputDir
     config = [
+            'swagger2markup.generatedExamplesEnabled'                :  true,
             'swagger2markup.pathsGroupedBy'                          : 'TAGS',
             'swagger2markup.extensions.springRestDocs.snippetBaseUri': snippetsOutputDir.getAbsolutePath()]
 }

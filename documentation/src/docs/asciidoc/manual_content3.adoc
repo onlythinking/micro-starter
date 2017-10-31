@@ -1,6 +1,4 @@
-== 面向的用户
-__
-开发人员，测试人员__
+== Chapter of manual content 2
 
-
+This is some dummy text
 

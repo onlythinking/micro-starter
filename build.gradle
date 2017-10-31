@@ -18,6 +18,8 @@ buildscript {
         querydslVersion = "3.6.4"
         hibernateVersion = "5.0.12.Final"
         adminVersion = "1.5.4"
+        swaggerVersion = '1.5.16'
+        springfoxVersion = '2.7.0'
     }
     repositories {
         mavenCentral()

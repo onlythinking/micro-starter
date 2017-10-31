@@ -25,6 +25,8 @@ configurations {
 
 dependencies {
     compile(
+            "io.swagger:swagger-annotations:${swaggerVersion}",
+            "io.springfox:springfox-core:${springfoxVersion}",
             "org.axonframework:axon-spring-boot-starter:${axonframeworkVersion}",
             "org.axonframework:axon-amqp:${axonframeworkVersion}",
             "org.hibernate:hibernate-java8:${hibernateVersion}",
