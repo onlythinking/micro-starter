@@ -28,49 +28,49 @@ cache:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker login -u $ALIYUN_DOCKER_USER -p $ALIYUN_DOCKER_PASS registry.cn-hangzhou.aliyuncs.com
 
   #TAG
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
 
   # config-service
-  - export CONFIG_SERVICE=sky233/config-service
+  - export CONFIG_SERVICE=registry.cn-hangzhou.aliyuncs.com/sky233/config-service
   - docker build -t $CONFIG_SERVICE ./config-service/build/docker
   - docker tag $CONFIG_SERVICE $CONFIG_SERVICE:$TAG
   - docker push $CONFIG_SERVICE
 
   # registry-service
-  - export REGISTRY_SERVICE=sky233/registry-service
+  - export REGISTRY_SERVICE=registry.cn-hangzhou.aliyuncs.com/sky233/registry-service
   - docker build -t $REGISTRY_SERVICE ./registry-service/build/docker
   - docker tag $REGISTRY_SERVICE $REGISTRY_SERVICE:$TAG
   - docker push $REGISTRY_SERVICE
 
   # gateway-service
-  - export GATEWAY_SERVICE=sky233/gateway-service
+  - export GATEWAY_SERVICE=registry.cn-hangzhou.aliyuncs.com/sky233/gateway-service
   - docker build -t $GATEWAY_SERVICE ./gateway-service/build/docker
   - docker tag $GATEWAY_SERVICE $GATEWAY_SERVICE:$TAG
   - docker push $GATEWAY_SERVICE
 
   # monitoring-service
-  - export MONITORING_SERVICE=sky233/monitoring-service
+  - export MONITORING_SERVICE=registry.cn-hangzhou.aliyuncs.com/sky233/monitoring-service
   - docker build -t $MONITORING_SERVICE ./monitoring-service/build/docker
   - docker tag $MONITORING_SERVICE $MONITORING_SERVICE:$TAG
   - docker push $MONITORING_SERVICE
 
   # adminserver
-  - export ADMIN_SERVER=sky233/adminserver
+  - export ADMIN_SERVER=registry.cn-hangzhou.aliyuncs.com/sky233/adminserver
   - docker build -t $ADMIN_SERVER ./adminserver/build/docker
   - docker tag $ADMIN_SERVER $ADMIN_SERVER:$TAG
   - docker push $ADMIN_SERVER
 
   # users-command-service
-  - export USER_COMMAND_SERVICE=sky233/users-command-service
+  - export USER_COMMAND_SERVICE=registry.cn-hangzhou.aliyuncs.com/sky233/users-command-service
   - docker build -t $USER_COMMAND_SERVICE ./users-command-service/build/docker
   - docker tag $USER_COMMAND_SERVICE $USER_COMMAND_SERVICE:$TAG
   - docker push $USER_COMMAND_SERVICE
 
   # users-query-service
-  - export USER_QUERY_SERVICE=sky233/users-query-service
+  - export USER_QUERY_SERVICE=registry.cn-hangzhou.aliyuncs.com/sky233/users-query-service
   - docker build -t $USER_QUERY_SERVICE ./users-query-service/build/docker
   - docker tag $USER_QUERY_SERVICE $USER_QUERY_SERVICE:$TAG
   - docker push $USER_QUERY_SERVICE
