@@ -1,8 +1,6 @@
 version: '3.1'
 services:
   configserver:
-    build:
-        context: ../config-service/build/docker
     image: sky233/config-service
     container_name: configserver
     ports:
@@ -10,8 +8,6 @@ services:
     environment:
      - SPRING_PROFILES_ACTIVE=prod
   registry:
-    build:
-        context: ../registry-service/build/docker
     image: sky233/registry-service
     container_name: registry
     ports:
@@ -21,8 +17,6 @@ services:
     depends_on:
      - configserver
   users-command-side:
-    build:
-        context: ../users-command-service/build/docker
     image: sky233/users-command-service:latest
     container_name: users-command-side
     ports:
@@ -35,8 +29,6 @@ services:
      - registry
      - configserver
   users-query-side:
-    build:
-        context: ../users-query-service/build/docker
     image: sky233/users-query-service:latest
     container_name: users-query-side
     ports:
@@ -49,8 +41,6 @@ services:
      - registry
      - configserver
   gateway:
-    build:
-        context: ../gateway-service/build/docker
     image: sky233/gateway-service
     container_name: gateway
     ports:
@@ -61,8 +51,6 @@ services:
      - registry
      - configserver
   monitoring:
-    build:
-        context: ../monitoring-service/build/docker
     image: sky233/monitoring-service
     container_name: monitoring
     ports:
@@ -73,8 +61,6 @@ services:
      - registry
      - configserver
   adminserver:
-    build:
-        context: ../adminserver/build/docker
     image: sky233/adminserver
     container_name: adminserver
     ports:

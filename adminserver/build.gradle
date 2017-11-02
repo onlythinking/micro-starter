@@ -49,6 +49,12 @@ task image(type: Docker, dependsOn: build) {
             from jar
             into stageDir
         }
+        copy {
+            from('src/main/docker') {
+                include '**/*.sh'
+            }
+            into stageDir
+        }
     }
 }
 
