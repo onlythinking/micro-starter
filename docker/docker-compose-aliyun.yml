@@ -1,0 +1,101 @@
+version: '3.1'
+services:
+  configserver:
+    image: sky233/config-service
+    container_name: configserver
+    ports:
+     - "8888:8888"
+    environment:
+     - SPRING_PROFILES_ACTIVE=prod
+  registry:
+    image: registry.cn-hangzhou.aliyuncs.com/sky233/registry-service
+    container_name: registry
+    ports:
+     - "8761:8761"
+    entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
+    command: java -Dspring.profiles.active=docker -jar /app.jar
+    depends_on:
+     - configserver
+  users-command-side:
+    image: registry.cn-hangzhou.aliyuncs.com/sky233/users-command-service:latest
+    container_name: users-command-side
+    ports:
+      - "8880"
+    entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
+    command: java -Dspring.profiles.active=docker -jar /app.jar
+    depends_on:
+     - mongodb
+     - rabbitmq
+     - registry
+     - configserver
+  users-query-side:
+    image: registry.cn-hangzhou.aliyuncs.com/sky233/users-query-service:latest
+    container_name: users-query-side
+    ports:
+     - "8881"
+    entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
+    command: java -Dspring.profiles.active=docker -jar /app.jar
+    depends_on:
+     - mysql
+     - rabbitmq
+     - registry
+     - configserver
+  gateway:
+    image: registry.cn-hangzhou.aliyuncs.com/sky233/gateway-service
+    container_name: gateway
+    ports:
+     - "8080:8080"
+    entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
+    command: java -Dspring.profiles.active=docker -jar /app.jar
+    depends_on:
+     - registry
+     - configserver
+  monitoring:
+    image: registry.cn-hangzhou.aliyuncs.com/sky233/monitoring-service
+    container_name: monitoring
+    ports:
+     - "6161:6161"
+    entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
+    command: java -Dspring.profiles.active=docker -jar /app.jar
+    depends_on:
+     - registry
+     - configserver
+  adminserver:
+    image: sky233/adminserver
+    container_name: adminserver
+    ports:
+     - "9998:9998"
+    entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
+    command: java -Dspring.profiles.active=docker -jar /app.jar
+    depends_on:
+     - registry
+     - configserver
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "micro_root"
+      MYSQL_DATABASE: "microservice"
+      MYSQL_USER: "micro"
+      MYSQL_PASSWORD: "micro"
+  mongodb:
+    image: mongo:3.2
+    container_name: mongodb
+    ports:
+     - "27017:27017"
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+     - "5672:5672"
+     - "15672:15672"
+    environment:
+     - RABBITMQ_DEFAULT_USER=micro
+     - RABBITMQ_DEFAULT_PASS=micro
+
+volumes:
+  mysql_data:
+    driver: local
