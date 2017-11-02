@@ -12,5 +12,4 @@ The microservice architectural style is an approach to developing a single appli
 
 ![Architecture](https://github.com/sky233/micro-starter/blob/master/slides/architecture-01.png "Architecture")
 
-See demo on GitHub Pages 
-https://sky233.github.io/micro-starter/1.0
+[Live demo](https://sky233.github.io/micro-starter/1.0)
