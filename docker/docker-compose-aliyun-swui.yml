@@ -95,7 +95,24 @@ services:
     environment:
      - RABBITMQ_DEFAULT_USER=micro
      - RABBITMQ_DEFAULT_PASS=micro
-
+  swarmpit:
+    image: swarmpit/swarmpit:latest
+    environment:
+      SWARMPIT_DB: http://couchdb:5984
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 888:8080
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+  couchdb:
+    image: klaemo/couchdb:2.0.0
+    volumes:
+      - db_data:/opt/couchdb/data
 volumes:
   mysql_data:
+    driver: local
+  db_data:
     driver: local
