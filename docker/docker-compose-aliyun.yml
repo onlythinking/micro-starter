@@ -61,7 +61,7 @@ services:
      - registry
      - configserver
   adminserver:
-    image: sky233/adminserver
+    image: registry.cn-hangzhou.aliyuncs.com/adminserver
     container_name: adminserver
     ports:
      - "9998:9998"

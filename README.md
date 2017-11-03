@@ -1,4 +1,5 @@
 # micro-starter
+[![gitter](https://badges.gitter.im/trezor/community.svg)](https://gitter.im/micro-starter)
 [![Build Status](https://travis-ci.org/sky233/micro-starter.svg?branch=master)](https://travis-ci.org/sky233/micro-starter)
 [![Docker Pulls](https://img.shields.io/docker/pulls/sky233/config-service.svg)](https://hub.docker.com/r/sky233/config-service)
 [![Docker Stars](https://img.shields.io/docker/stars/sky233/config-service.svg)](https://hub.docker.com/r/sky233/config-service)
@@ -12,4 +13,5 @@ The microservice architectural style is an approach to developing a single appli
 
 ![Architecture](https://github.com/sky233/micro-starter/blob/master/slides/architecture-01.png "Architecture")
 
-[Live demo](https://sky233.github.io/micro-starter/1.0)
+## Demo
+   [Live demo](https://sky233.github.io/micro-starter/1.0)
