@@ -31,8 +31,9 @@ docker stack deploy -c docker/docker-compose-aliyun-swui.yml micro-starter
   * http://ip-self:27017 - Mongodb
   * http://ip-self:3306 - MySQL (default micro/micro)
 
-![Swarmpit ui](https://github.com/sky233/micro-starter/blob/master/slides/swarmpit.png "Swarmpit ui")
-![Admin server](https://github.com/sky233/micro-starter/blob/master/slides/adminserver.png "Admin server")
+### 图示 
+* ![Swarmpit ui](https://github.com/sky233/micro-starter/blob/master/slides/swarmpit.png "Swarmpit ui")
+* ![Admin server](https://github.com/sky233/micro-starter/blob/master/slides/adminserver.png "Admin server")
 
 ## 在线示例
   * [Api docs](https://sky233.github.io/micro-starter/1.0)
@@ -44,5 +45,5 @@ docker stack deploy -c docker/docker-compose-aliyun-swui.yml micro-starter
 
 ## 欢迎反馈
   * 有任何问题随时与我联系，感谢您的反馈。 
-  * email: lixingping233@gmail.com
+  * lixingping233@gmail.com
   * [@Twitter](https://twitter.com/lixingping233)
