@@ -13,18 +13,17 @@ import java.util.UUID;
  * @author Li Xingping
  */
 @Getter
-@EqualsAndHashCode
 public abstract class IdIdentifier implements Serializable {
 
   @NotBlank
-  protected final String value;
+  protected final String identifier;
 
   protected IdIdentifier() {
-    this.value = id();
+    this.identifier = id();
   }
 
   protected IdIdentifier(String value) {
-    this.value = value;
+    this.identifier = value;
   }
 
   protected static String id() {
@@ -32,7 +31,12 @@ public abstract class IdIdentifier implements Serializable {
   }
 
   @Override
+  public int hashCode() {
+    return this.identifier.hashCode();
+  }
+
+  @Override
   public String toString() {
-    return this.value;
+    return this.identifier;
   }
 }

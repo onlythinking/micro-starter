@@ -1,18 +1,22 @@
 package com.believe.command.users.aggregate;
 
-import com.believe.api.users.event.UsersCreatedEvent;
-import com.believe.api.users.event.UsersUpdatedEvent;
+import com.believe.api.users.event.*;
+import com.believe.api.users.model.SocialAccountType;
 import com.believe.api.users.model.UsersId;
-import com.believe.command.users.command.CreateUsersCommand;
-import com.believe.command.users.command.UpdateUsersCommand;
+import com.believe.command.users.command.*;
+import com.google.common.collect.Maps;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
+import org.axonframework.commandhandling.model.AggregateMember;
+import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import javax.validation.constraints.NotNull;
+
+import java.util.Map;
 
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 
@@ -28,28 +32,87 @@ public class UsersAggregate {
 
   @NotNull
   @AggregateIdentifier
-  private UsersId id;
+  private UsersId identifier;
+  private boolean activated;
   private String username;
+  private String passwordHash;
 
-  @CommandHandler
-  public UsersAggregate(CreateUsersCommand command) {
-    apply(new UsersCreatedEvent(command.getId(), command.getUsername()));
+  @AggregateMember
+  private Map<SocialAccountType, SocialAccountEntity> authenticationEntities = Maps.newHashMapWithExpectedSize(SocialAccountType.values().length);
+
+  public UsersAggregate(UsersId identifier, boolean activated, String username, String passwordHash) {
+    this.identifier = identifier;
+    this.activated = activated;
+    this.username = username;
+    this.passwordHash = passwordHash;
   }
 
   @CommandHandler
-  public void update(UpdateUsersCommand command) {
-    apply(new UsersUpdatedEvent(command.getId(), command.getUsername()));
+  public void activatedUsers(ActiveUsersCommand command) {
+    if (this.activated) {
+      throw new IllegalStateException("Illegal state.");
+    }
+    apply(new UsersActivatedEvent(command.getIdentifier(), command.getUsername(), true));
   }
 
-  @EventSourcingHandler
+  @CommandHandler
+  public void disActivatedUsers(DisActiveUsersCommand command) {
+    if (this.activated) {
+      throw new IllegalStateException("Illegal state.");
+    }
+    apply(new UsersDisActivatedEvent(command.getIdentifier(), command.getUsername(), false));
+  }
+
+  @CommandHandler
+  public void bindSocialAccount(BindSocialAccountCommand command) {
+    checkUsersState();
+    apply(new SocialAccountBindEvent(command.getIdentifier(), command.getUsername(), command.getSocialAccountType(), command.getData()));
+  }
+
+  @CommandHandler
+  public void unBindSocialAccount(UnBindSocialAccountCommand command) {
+    checkUsersState();
+    if (this.authenticationEntities.isEmpty() || this.authenticationEntities.size() == 1) {
+      //todo exception commons handle
+      throw new IllegalStateException("Illegal state.");
+    }
+    apply(new SocialAccountUnbindEvent(command.getIdentifier(), command.getUsername(), command.getSocialAccountType(), command.getData()));
+  }
+
+  private boolean checkUsersState() {
+    if (!this.activated) {
+      throw new IllegalStateException("Illegal state.");
+    }
+    return true;
+  }
+
+  @EventHandler
   public void on(UsersCreatedEvent event) {
-    this.id = event.getId();
+    this.identifier = event.getIdentifier();
     this.username = event.getUsername();
+    this.passwordHash = event.getPassword();
+    this.activated = true;
   }
 
   @EventSourcingHandler
-  public void on(UsersUpdatedEvent event) {
+  public void on(UsersActivatedEvent event) {
+    this.identifier = event.getIdentifier();
     this.username = event.getUsername();
+    this.activated = event.isActivated();
+  }
+
+  @EventSourcingHandler
+  public void on(UsersDisActivatedEvent event) {
+    this.identifier = event.getIdentifier();
+    this.username = event.getUsername();
+    this.activated = event.isActivated();
+  }
+
+  @EventSourcingHandler
+  public void on(SocialAccountUnbindEvent event) {
+    this.identifier = event.getIdentifier();
+    this.username = event.getUsername();
+    this.authenticationEntities.remove(event.getSocialAccountType());
   }
 
 }

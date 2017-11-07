@@ -14,21 +14,10 @@ import javax.validation.constraints.NotNull;
  * @author Li Xingping
  */
 @Data
-public class CreateUsersCommand {
-
+public class ActiveUsersCommand {
   @NotNull
   @TargetAggregateIdentifier
   private final UsersId identifier;
-  @NotNull
-  private SocialAccountType socialAccountType;
   @NotBlank
-  private final String username;
-  private String passwordHash;
-
-  public CreateUsersCommand(String username, String passwordHash) {
-    this.username = username;
-    this.passwordHash = passwordHash;
-    this.identifier = new UsersId();
-  }
-
+  private String username;
 }

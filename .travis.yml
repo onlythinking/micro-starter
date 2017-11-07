@@ -9,7 +9,6 @@ jdk: oraclejdk8
 branches:
   only:
   - master
-  - 1.0
 
 before_install:
   - chmod +x gradlew

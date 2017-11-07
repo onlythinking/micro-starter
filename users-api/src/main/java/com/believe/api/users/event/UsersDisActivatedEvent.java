@@ -11,10 +11,8 @@ import java.io.Serializable;
  * @author Li Xingping
  */
 @Value
-public class UsersCreatedEvent implements Serializable {
-
+public class UsersDisActivatedEvent implements Serializable {
   private final UsersId identifier;
   private final String username;
-  private final String password;
-
+  private final boolean activated;
 }

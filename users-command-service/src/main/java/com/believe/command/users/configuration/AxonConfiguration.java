@@ -7,9 +7,6 @@ import org.axonframework.mongo.eventsourcing.eventstore.DefaultMongoTemplate;
 import org.axonframework.mongo.eventsourcing.eventstore.MongoEventStorageEngine;
 import org.axonframework.mongo.eventsourcing.eventstore.MongoTemplate;
 
-import org.axonframework.mongo.eventsourcing.eventstore.documentperevent.DocumentPerEventStorageStrategy;
-import org.axonframework.serialization.Serializer;
-import org.axonframework.serialization.json.JacksonSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,16 +39,6 @@ public class AxonConfiguration {
   @Value("${spring.application.snapshotCollectionName}")
   private String snapshotCollectionName;
 
-//  @Bean
-//  XStreamSerializer xmlSerializer() {
-//    return new XStreamSerializer();
-//  }
-
-  @Bean
-  Serializer serializer() {
-    return new JacksonSerializer();
-  }
-
   @Autowired
   public void configure(@Qualifier("localSegment") SimpleCommandBus simpleCommandBus) {
     simpleCommandBus.registerDispatchInterceptor(new BeanValidationInterceptor<>());
@@ -65,7 +52,7 @@ public class AxonConfiguration {
 
   @Bean(name = "axonMongoEventStorageEngine")
   MongoEventStorageEngine mongoEventStorageEngine() {
-    return new MongoEventStorageEngine(serializer(), null, axonMongoTemplate(), new DocumentPerEventStorageStrategy());
+    return new MongoEventStorageEngine(axonMongoTemplate());
   }
 
 }

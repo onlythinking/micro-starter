@@ -25,7 +25,7 @@ public class UsersCommandController {
 
   @PostMapping("/create")
   public void create(@Valid @RequestBody UserDto userDto) {
-    CreateUsersCommand command = new CreateUsersCommand(userDto.getUsername());
+    CreateUsersCommand command = new CreateUsersCommand(userDto.getUsername(), userDto.getPassword());
     commandGateway.sendAndWait(command);
   }
 

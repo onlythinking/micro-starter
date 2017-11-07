@@ -4,13 +4,11 @@ import com.rabbitmq.client.Channel;
 import org.axonframework.amqp.eventhandling.DefaultAMQPMessageConverter;
 import org.axonframework.amqp.eventhandling.spring.SpringAMQPMessageSource;
 import org.axonframework.serialization.Serializer;
-import org.axonframework.serialization.json.JacksonSerializer;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -68,13 +66,8 @@ public class RabbitConfiguration {
     admin.declareBinding(binding);
   }
 
-  @Bean("jacksonSerializer")
-  Serializer serializer() {
-    return new JacksonSerializer();
-  }
-
   @Bean(name = "messageSourceUsers")
-  public SpringAMQPMessageSource messageSourceUsers(@Qualifier("jacksonSerializer") Serializer serializer) {
+  public SpringAMQPMessageSource messageSourceUsers(Serializer serializer) {
     return new SpringAMQPMessageSource(new DefaultAMQPMessageConverter(serializer)) {
 
       @RabbitListener(queues = "${spring.application.queue}")

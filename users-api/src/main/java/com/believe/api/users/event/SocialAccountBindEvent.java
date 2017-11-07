@@ -1,5 +1,6 @@
 package com.believe.api.users.event;
 
+import com.believe.api.users.model.SocialAccountType;
 import com.believe.api.users.model.UsersId;
 import lombok.Value;
 
@@ -11,10 +12,9 @@ import java.io.Serializable;
  * @author Li Xingping
  */
 @Value
-public class UsersCreatedEvent implements Serializable {
-
+public class SocialAccountBindEvent implements Serializable {
   private final UsersId identifier;
   private final String username;
-  private final String password;
-
+  private final SocialAccountType socialAccountType;
+  private final String socialAccount;
 }
