@@ -1,5 +1,6 @@
 package com.believe.command.users.web.dto;
 
+import com.believe.api.users.model.SocialAccountType;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -16,4 +17,7 @@ public class UserDto {
   @NotBlank
   private String username;
   private String password;
+
+  private SocialAccountType socialAccountType;
+  private String data;
 }

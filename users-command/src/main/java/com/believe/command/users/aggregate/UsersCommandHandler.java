@@ -27,7 +27,7 @@ public class UsersCommandHandler {
   @CommandHandler
   public UsersId handleCreateUser(CreateUsersCommand command) throws Exception {
     UsersId identifier = command.getIdentifier();
-    repository.newInstance(() -> new UsersAggregate(identifier, true, command.getUsername(), command.getPasswordHash()));
+    repository.newInstance(() -> new UsersAggregate(identifier, command.getUsername(), command.getPassword()));
     return identifier;
   }
 

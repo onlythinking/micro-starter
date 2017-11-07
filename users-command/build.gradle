@@ -11,7 +11,8 @@ dependencies {
             project(":commons-command"),
             "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
             "org.axonframework:axon-spring-boot-starter:${axonframeworkVersion}",
-            "org.axonframework:axon-amqp:${axonframeworkVersion}"
+            "org.axonframework:axon-amqp:${axonframeworkVersion}",
+            "org.springframework.cloud:spring-cloud-starter-feign:${springCloudVersion}"
     )
     testCompile(
             "org.axonframework:axon-test:${axonframeworkVersion}",

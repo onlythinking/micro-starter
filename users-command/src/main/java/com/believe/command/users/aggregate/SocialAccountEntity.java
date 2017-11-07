@@ -19,7 +19,7 @@ import java.io.Serializable;
 class SocialAccountEntity implements Serializable {
 
   @NotNull
-  private SocialId id;
+  private SocialId socialId;
   private boolean authenticated;
   private String token;
   private String data;

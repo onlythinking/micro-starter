@@ -16,7 +16,7 @@ public class EventLoggingHandler {
 
   @EventHandler
   public void handle(UsersCreatedEvent event) {
-    log.debug("Instance:{} EventType:{} EventId:[{}] '{}'", event.getId(), event.getClass().getSimpleName(), event.getId(), event.getUsername());
+    log.debug("Instance:{} EventType:{} EventId:[{}] '{}'", event.getIdentifier().getIdentifier(), event.getClass().getSimpleName(), event.getIdentifier().getIdentifier(), event.getUsername());
   }
 
 }

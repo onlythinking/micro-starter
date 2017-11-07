@@ -1,6 +1,5 @@
 package com.believe.commons.api;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.hibernate.validator.constraints.NotBlank;
 

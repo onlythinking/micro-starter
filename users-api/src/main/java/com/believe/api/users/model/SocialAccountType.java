@@ -12,5 +12,5 @@ public enum SocialAccountType {
 
   WECHAT,
   QQ,
-  PHONE
+  WEIBO
 }
