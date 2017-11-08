@@ -12,14 +12,16 @@ buildscript {
         validationVersion = "1.1.0.Final"
         hibernateValidationVersion = "5.2.4.Final"
         xstreamVersion = "1.4.9"
-        jacksonVersion = "2.8.7"
-        jpaPersistenceVersion = "1.0.1.Final"
+        jacksonVersion = "2.8.8"
+        jpaPersistenceVersion = "1.0.0.Final"
         jodaVersion = "2.8.2"
         querydslVersion = "3.6.4"
         hibernateVersion = "5.0.12.Final"
         adminVersion = "1.5.4"
         swaggerVersion = '1.5.16'
         springfoxVersion = '2.7.0'
+        feignOkhttpVersion = '8.18.0'
+        springCloudFeignVersion = '1.3.5.RELEASE'
     }
     repositories {
         mavenCentral()

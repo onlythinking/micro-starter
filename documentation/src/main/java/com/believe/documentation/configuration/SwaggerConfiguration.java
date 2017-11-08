@@ -90,7 +90,7 @@ public class SwaggerConfiguration {
       .securitySchemes(newArrayList(apiKey()))
       .securityContexts(newArrayList(securityContext()))
       .enableUrlTemplating(true)
-      .tags(new Tag("Users Service", "All apis"));
+      .tags(new Tag("User Service", "All apis"));
     watch.stop();
     log.debug("Started Swagger in {} ms", watch.getTotalTimeMillis());
     return docket;

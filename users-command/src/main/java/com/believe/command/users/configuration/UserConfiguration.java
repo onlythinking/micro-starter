@@ -1,7 +1,7 @@
 package com.believe.command.users.configuration;
 
-import com.believe.command.users.aggregate.UsersAggregate;
-import com.believe.command.users.aggregate.UsersCommandHandler;
+import com.believe.command.users.aggregate.UserAggregate;
+import com.believe.command.users.aggregate.UserCommandHandler;
 import org.axonframework.eventhandling.EventBus;
 import org.axonframework.spring.config.AxonConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Li Xingping
  */
 @Configuration
-public class UsersConfiguration {
+public class UserConfiguration {
 
   @Autowired
   private AxonConfiguration axonConfiguration;
@@ -23,7 +23,7 @@ public class UsersConfiguration {
   private EventBus eventBus;
 
   @Bean
-  public UsersCommandHandler usersCommandHandler() {
-    return new UsersCommandHandler(axonConfiguration.repository(UsersAggregate.class), eventBus);
+  public UserCommandHandler userCommandHandler() {
+    return new UserCommandHandler(axonConfiguration.repository(UserAggregate.class), eventBus);
   }
 }

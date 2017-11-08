@@ -1,6 +1,6 @@
 package com.believe.api.users.event;
 
-import com.believe.api.users.model.UsersId;
+import com.believe.api.users.model.UserId;
 import lombok.Value;
 
 /**
@@ -10,5 +10,5 @@ import lombok.Value;
  */
 @Value
 public class UserAuthenticatedEvent {
-  private final UsersId identifier;
+  private final UserId identifier;
 }

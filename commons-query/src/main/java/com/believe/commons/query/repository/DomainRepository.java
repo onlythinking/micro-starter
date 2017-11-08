@@ -1,6 +1,6 @@
 package com.believe.commons.query.repository;
 
-import com.believe.commons.query.model.Domain;
+import com.believe.commons.api.domain.Domain;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.rest.core.annotation.RestResource;
 import springfox.documentation.annotations.ApiIgnore;

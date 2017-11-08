@@ -1,4 +1,4 @@
-package com.believe.commons.query.model;
+package com.believe.commons.api.domain;
 
 import lombok.Data;
 

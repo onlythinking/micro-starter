@@ -1,9 +1,7 @@
 package com.believe.command.users.command;
 
-import com.believe.api.users.model.UsersId;
-import lombok.AllArgsConstructor;
+import com.believe.api.users.model.UserId;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -15,12 +13,17 @@ import javax.validation.constraints.NotNull;
  * @author Li Xingping
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class DisActiveUsersCommand {
+public class UpdateUserCommand {
+
   @NotNull
   @TargetAggregateIdentifier
-  private UsersId identifier;
+  private final UserId id;
   @NotBlank
-  private String username;
+  private final String username;
+
+  public UpdateUserCommand(String id, String username) {
+    this.username = username;
+    this.id = new UserId(id);
+  }
+
 }

@@ -3,10 +3,10 @@ package com.believe.command.users.aggregate;
 import com.believe.api.users.event.*;
 import com.believe.api.users.model.SocialAccountType;
 import com.believe.api.users.model.SocialId;
-import com.believe.api.users.model.UsersId;
-import com.believe.command.users.command.ActiveUsersCommand;
+import com.believe.api.users.model.UserId;
+import com.believe.command.users.command.ActiveUserCommand;
 import com.believe.command.users.command.BindSocialAccountCommand;
-import com.believe.command.users.command.DisActiveUsersCommand;
+import com.believe.command.users.command.DisActiveUserCommand;
 import com.believe.command.users.command.UnBindSocialAccountCommand;
 import com.believe.commons.api.DomainException;
 import com.google.common.collect.Maps;
@@ -36,11 +36,11 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 @Aggregate
 @Data
 @NoArgsConstructor
-public class UsersAggregate {
+public class UserAggregate {
 
   @NotNull
   @AggregateIdentifier
-  private UsersId identifier;
+  private UserId identifier;
   private boolean activated;
   private String username;
   private String passwordHash;
@@ -48,8 +48,8 @@ public class UsersAggregate {
   @AggregateMember
   private Map<SocialAccountType, SocialAccountEntity> socialAccounts = Maps.newHashMapWithExpectedSize(SocialAccountType.values().length);
 
-  public UsersAggregate(UsersId identifier, String username, String password) {
-    apply(new UsersCreatedEvent(identifier, username, hashOf(password)));
+  public UserAggregate(UserId identifier, String username, String password) {
+    apply(new UserCreatedEvent(identifier, username, hashOf(password)));
   }
 
   public boolean authenticate(String password) {
@@ -61,19 +61,19 @@ public class UsersAggregate {
   }
 
   @CommandHandler
-  public void activeUsers(ActiveUsersCommand command) {
+  public void activeUsers(ActiveUserCommand command) {
     if (this.activated) {
       throw DomainException.of(USER_ACTIVE_STATE_INVALID, "Already activated.");
     }
-    apply(new UsersActivatedEvent(command.getIdentifier(), command.getUsername(), true));
+    apply(new UserActivatedEvent(command.getIdentifier(), command.getUsername(), true));
   }
 
   @CommandHandler
-  public void disActiveUsers(DisActiveUsersCommand command) {
+  public void disActiveUsers(DisActiveUserCommand command) {
     if (!this.activated) {
       throw DomainException.of(USER_ACTIVE_STATE_INVALID);
     }
-    apply(new UsersDisActivatedEvent(command.getIdentifier(), command.getUsername(), false));
+    apply(new UserDisActivatedEvent(command.getIdentifier(), command.getUsername(), false));
   }
 
   @CommandHandler
@@ -101,7 +101,7 @@ public class UsersAggregate {
   }
 
   @EventHandler
-  public void on(UsersCreatedEvent event) {
+  public void on(UserCreatedEvent event) {
     this.identifier = event.getIdentifier();
     this.username = event.getUsername();
     this.passwordHash = event.getPassword();
@@ -109,13 +109,13 @@ public class UsersAggregate {
   }
 
   @EventSourcingHandler
-  public void on(UsersActivatedEvent event) {
+  public void on(UserActivatedEvent event) {
     this.identifier = event.getIdentifier();
     this.activated = event.isActivated();
   }
 
   @EventSourcingHandler
-  public void on(UsersDisActivatedEvent event) {
+  public void on(UserDisActivatedEvent event) {
     this.identifier = event.getIdentifier();
     this.activated = event.isActivated();
   }

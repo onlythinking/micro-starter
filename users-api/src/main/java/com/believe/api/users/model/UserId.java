@@ -11,9 +11,9 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class UsersId extends IdIdentifier {
+public class UserId extends IdIdentifier {
 
-  public UsersId(String value) {
+  public UserId(String value) {
     super(value);
   }
 }

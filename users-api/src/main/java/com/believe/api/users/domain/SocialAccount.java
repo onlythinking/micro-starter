@@ -1,7 +1,7 @@
-package com.believe.query.users.domain;
+package com.believe.api.users.domain;
 
 import com.believe.api.users.model.SocialAccountType;
-import com.believe.commons.query.model.Model;
+import com.believe.commons.api.domain.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,6 +33,6 @@ public class SocialAccount extends Model<String> {
   @JsonIgnore
   @ManyToOne(optional = false)
   @JoinColumn(name = "owner_id", nullable = false, updatable = false)
-  private Users owner;
+  private User owner;
 
 }

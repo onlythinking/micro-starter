@@ -1,8 +1,8 @@
 package com.believe.query.users.handlers;
 
 import com.believe.api.users.event.*;
-import com.believe.query.users.domain.Users;
-import com.believe.query.users.repository.UsersRepository;
+import com.believe.api.users.domain.User;
+import com.believe.query.users.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
@@ -25,30 +25,30 @@ import java.time.Instant;
 public class UsersEventHandler {
 
   @Autowired
-  private UsersRepository usersRepository;
+  private UserRepository userRepository;
 
   @EventHandler
-  public void handle(final UsersCreatedEvent event, @Timestamp Instant timestamp, @SequenceNumber Long version) {
-    log.info("UsersCreatedEvent: [{}] ", event.getIdentifier());
-    Users users = new Users();
-    users.setId(event.getIdentifier().getIdentifier());
-    users.setUsername(event.getUsername());
-    users.setAggregateVersion(version);
+  public void handle(final UserCreatedEvent event, @Timestamp Instant timestamp, @SequenceNumber Long version) {
+    log.info("UserCreatedEvent: [{}] ", event.getIdentifier());
+    User user = new User();
+    user.setId(event.getIdentifier().getIdentifier());
+    user.setUsername(event.getUsername());
+    user.setAggregateVersion(version);
 
-    users.setCreatedDate(timestamp);
-    users.setLastModifiedDate(timestamp);
-    usersRepository.save(users);
+    user.setCreatedDate(timestamp);
+    user.setLastModifiedDate(timestamp);
+    userRepository.save(user);
   }
 
   @EventHandler
   @Transactional
   public void handle(final SocialAccountBindEvent event, @Timestamp Instant timestamp, @SequenceNumber Long version) {
     log.info("SocialAccountBindEvent: [{}] ", event.getIdentifier());
-    usersRepository.findOneById(event.getIdentifier().getIdentifier()).ifPresent(users -> {
+    userRepository.findOneById(event.getIdentifier().getIdentifier()).ifPresent(users -> {
       users.bindSocialAccount(event.getSocialId().getIdentifier(), event.getAccountNo(), event.getSocialAccountType());
       users.setAggregateVersion(version);
       users.setLastModifiedDate(timestamp);
-      usersRepository.save(users);
+      userRepository.save(users);
     });
   }
 
@@ -56,35 +56,35 @@ public class UsersEventHandler {
   @Transactional
   public void handle(final SocialAccountUnbindEvent event, @Timestamp Instant timestamp, @SequenceNumber Long version) {
     log.info("SocialAccountUnbindEvent: [{}] ", event.getIdentifier());
-    usersRepository.findOneById(event.getIdentifier().getIdentifier()).ifPresent(users -> {
+    userRepository.findOneById(event.getIdentifier().getIdentifier()).ifPresent(users -> {
       users.unbindSocialAccount(event.getSocialId().getIdentifier());
       users.setAggregateVersion(version);
       users.setLastModifiedDate(timestamp);
-      usersRepository.save(users);
+      userRepository.save(users);
     });
   }
 
   @EventHandler
   @Transactional
-  public void handle(final UsersActivatedEvent event, @Timestamp Instant timestamp, @SequenceNumber Long version) {
-    log.info("UsersActivatedEvent: [{}] ", event.getIdentifier());
-    usersRepository.findOneById(event.getIdentifier().getIdentifier()).ifPresent(users -> {
+  public void handle(final UserActivatedEvent event, @Timestamp Instant timestamp, @SequenceNumber Long version) {
+    log.info("UserActivatedEvent: [{}] ", event.getIdentifier());
+    userRepository.findOneById(event.getIdentifier().getIdentifier()).ifPresent(users -> {
       users.setActivated(true);
       users.setAggregateVersion(version);
       users.setLastModifiedDate(timestamp);
-      usersRepository.save(users);
+      userRepository.save(users);
     });
   }
 
   @EventHandler
   @Transactional
-  public void handle(final UsersDisActivatedEvent event, @Timestamp Instant timestamp, @SequenceNumber Long version) {
-    log.info("UsersDisActivatedEvent: [{}] ", event.getIdentifier());
-    usersRepository.findOneById(event.getIdentifier().getIdentifier()).ifPresent(users -> {
+  public void handle(final UserDisActivatedEvent event, @Timestamp Instant timestamp, @SequenceNumber Long version) {
+    log.info("UserDisActivatedEvent: [{}] ", event.getIdentifier());
+    userRepository.findOneById(event.getIdentifier().getIdentifier()).ifPresent(users -> {
       users.setActivated(false);
       users.setAggregateVersion(version);
       users.setLastModifiedDate(timestamp);
-      usersRepository.save(users);
+      userRepository.save(users);
     });
   }
 

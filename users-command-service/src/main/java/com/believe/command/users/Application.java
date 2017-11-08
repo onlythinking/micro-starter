@@ -4,7 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.netflix.feign.FeignFormatterRegistrar;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -17,7 +23,21 @@ import java.net.UnknownHostException;
 @Slf4j
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
+@EnableFeignClients
 public class Application {
+
+  @Bean
+  public FeignFormatterRegistrar localDateFeignFormatterRegistrar() {
+    return new FeignFormatterRegistrar() {
+      @Override
+      public void registerFormatters(FormatterRegistry formatterRegistry) {
+        DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
+        registrar.setUseIsoFormat(true);
+        registrar.registerFormatters(formatterRegistry);
+      }
+    };
+  }
 
   public static void main(String... args) throws UnknownHostException {
     SpringApplication app = new SpringApplication(Application.class);

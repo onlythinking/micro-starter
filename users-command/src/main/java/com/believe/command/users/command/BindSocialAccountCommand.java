@@ -1,7 +1,7 @@
 package com.believe.command.users.command;
 
 import com.believe.api.users.model.SocialAccountType;
-import com.believe.api.users.model.UsersId;
+import com.believe.api.users.model.UserId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +22,7 @@ public class BindSocialAccountCommand {
 
   @NotNull
   @TargetAggregateIdentifier
-  private UsersId identifier;
+  private UserId identifier;
   @NotBlank
   private String username;
   @NotNull

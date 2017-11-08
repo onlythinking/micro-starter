@@ -1,6 +1,6 @@
 package com.believe.command.users.command;
 
-import com.believe.api.users.model.UsersId;
+import com.believe.api.users.model.UserId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,10 +17,10 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ActiveUsersCommand {
+public class ActiveUserCommand {
   @NotNull
   @TargetAggregateIdentifier
-  private UsersId identifier;
+  private UserId identifier;
   @NotBlank
   private String username;
 }

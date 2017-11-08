@@ -1,6 +1,6 @@
 package com.believe.commons.query.repository;
 
-import com.believe.commons.query.model.Record;
+import com.believe.commons.api.domain.Record;
 import org.springframework.data.repository.NoRepositoryBean;
 
 /**

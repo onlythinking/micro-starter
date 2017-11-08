@@ -1,6 +1,6 @@
 package com.believe.api.users.event;
 
-import com.believe.api.users.model.UsersId;
+import com.believe.api.users.model.UserId;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -11,10 +11,8 @@ import java.io.Serializable;
  * @author Li Xingping
  */
 @Value
-public class UsersCreatedEvent implements Serializable {
-
-  private final UsersId identifier;
+public class UserDisActivatedEvent implements Serializable {
+  private final UserId identifier;
   private final String username;
-  private final String password;
-
+  private final boolean activated;
 }

@@ -1,7 +1,7 @@
-package com.believe.query.users.domain;
+package com.believe.api.users.domain;
 
 import com.believe.api.users.model.SocialAccountType;
-import com.believe.commons.query.model.Domain;
+import com.believe.commons.api.domain.Domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
 import lombok.*;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Table(name = "users")
 @EqualsAndHashCode(callSuper = true, exclude = {"socialAccounts"})
 @ToString(exclude = {"socialAccounts"})
-public class Users extends Domain<String> {
+public class User extends Domain<String> {
 
   @NotBlank
   @Column(unique = true, nullable = false)
@@ -31,6 +31,7 @@ public class Users extends Domain<String> {
   @Column(nullable = false)
   private boolean activated = true;
 
+  @JsonIgnore
   @Column
   private String password;
 
@@ -39,7 +40,7 @@ public class Users extends Domain<String> {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
   private Set<SocialAccount> socialAccounts = Sets.newHashSet();
 
-  public Users bindSocialAccount(String socialId, String accountNo, SocialAccountType socialAccountType) {
+  public User bindSocialAccount(String socialId, String accountNo, SocialAccountType socialAccountType) {
     SocialAccount socialAccount = new SocialAccount();
     socialAccount.setId(socialId);
     socialAccount.setAccountNo(accountNo);
@@ -50,7 +51,7 @@ public class Users extends Domain<String> {
     return this;
   }
 
-  public Users unbindSocialAccount(String socialId) {
+  public User unbindSocialAccount(String socialId) {
     this.socialAccounts = this.socialAccounts.stream().filter(socialAccount -> !socialAccount.getId().equals(socialId)).collect(Collectors.toSet());
     return this;
   }

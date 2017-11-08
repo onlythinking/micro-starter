@@ -14,6 +14,7 @@ dependencies {
             "io.springfox:springfox-core:${springfoxVersion}",
             "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
             "org.apache.commons:commons-lang3:${commonsLangVersion}",
+            "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${jpaPersistenceVersion}",
             "javax.validation:validation-api:${validationVersion}",
             "org.hibernate:hibernate-validator:${hibernateValidationVersion}",
             "com.google.guava:guava:${guavaVersion}",

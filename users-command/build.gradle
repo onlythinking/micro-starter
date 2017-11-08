@@ -12,7 +12,9 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
             "org.axonframework:axon-spring-boot-starter:${axonframeworkVersion}",
             "org.axonframework:axon-amqp:${axonframeworkVersion}",
-            "org.springframework.cloud:spring-cloud-starter-feign:${springCloudVersion}"
+            "com.netflix.feign:feign-okhttp:${feignOkhttpVersion}",
+            "org.springframework.boot:spring-boot-starter-hateoas:${springBootVersion}",
+            "org.springframework.cloud:spring-cloud-starter-feign:${springCloudFeignVersion}",
     )
     testCompile(
             "org.axonframework:axon-test:${axonframeworkVersion}",

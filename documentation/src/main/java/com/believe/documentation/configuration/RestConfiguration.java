@@ -1,6 +1,6 @@
 package com.believe.documentation.configuration;
 
-import com.believe.query.users.domain.Users;
+import com.believe.api.users.domain.User;
 import org.springframework.boot.autoconfigure.web.WebMvcRegistrationsAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,7 +55,7 @@ public class RestConfiguration extends RepositoryRestMvcConfiguration {
   static class RestConfigurationExposeId extends RepositoryRestConfigurerAdapter {
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-      config.exposeIdsFor(Users.class);
+      config.exposeIdsFor(User.class);
       config.setBasePath("/api");
     }
   }

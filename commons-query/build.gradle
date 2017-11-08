@@ -25,6 +25,7 @@ configurations {
 
 dependencies {
     compile(
+            project(":commons-api"),
             "io.swagger:swagger-annotations:${swaggerVersion}",
             "io.springfox:springfox-core:${springfoxVersion}",
             "org.axonframework:axon-spring-boot-starter:${axonframeworkVersion}",

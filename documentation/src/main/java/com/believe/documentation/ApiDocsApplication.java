@@ -25,7 +25,7 @@ import org.springframework.http.converter.json.AbstractJackson2HttpMessageConver
 @Configuration
 @ComponentScan("com.believe")
 @EnableJpaRepositories("com.believe.query.users.repository")
-@EntityScan({"org.axonframework", "com.believe.query.users.domain"})
+@EntityScan({"org.axonframework", "com.believe.api.users.domain"})
 @SpringBootApplication
 public class ApiDocsApplication {
 

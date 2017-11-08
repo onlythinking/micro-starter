@@ -5,5 +5,5 @@ package com.believe.command.users.command;
  *
  * @author Li Xingping
  */
-public class AuthenticateUsersCommand {
+public class AuthenticateUserCommand {
 }

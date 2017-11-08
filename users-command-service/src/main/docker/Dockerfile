@@ -1,7 +1,7 @@
 FROM java:8
 VOLUME /tmp
 EXPOSE 8880
-ADD users-command-service.jar app.jar
+ADD user-command-service.jar app.jar
 ADD wait-for-it.sh /wait-for-it.sh
 RUN bash -c 'touch /app.jar'
 RUN bash -c 'chmod 777 /wait-for-it.sh'

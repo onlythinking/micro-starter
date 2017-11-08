@@ -58,15 +58,15 @@ public class DocumentationApplication {
     apiGateway.addTags(API_GATEWAY_TAG);
 
     // ## Command side
-    Container usersCommandService = mySoftwareSystem.addContainer("Users Command Service", "The point of access for users mangement - command side.", "Java and Spring Boot");
+    Container usersCommandService = mySoftwareSystem.addContainer("User Command Service", "The point of access for users mangement - command side.", "Java and Spring Boot");
     usersCommandService.addTags(MICROSERVICE_TAG);
     Container eventStoreDatabase = mySoftwareSystem.addContainer("Event Store", "Stores all events (evensourcing).", "Mongodb");
     eventStoreDatabase.addTags(DATASTORE_TAG);
 
     //## Query side ##
-    Container usersQueryService = mySoftwareSystem.addContainer("Users Query Service", "The point of access for blog materialized views - query side.", "Java and Spring Boot");
+    Container usersQueryService = mySoftwareSystem.addContainer("User Query Service", "The point of access for blog materialized views - query side.", "Java and Spring Boot");
     usersQueryService.addTags(MICROSERVICE_TAG);
-    Container usersQueryStore = mySoftwareSystem.addContainer("Users Query Store", "Stores information about Users posts - materialized view", "MySQL");
+    Container usersQueryStore = mySoftwareSystem.addContainer("User Query Store", "Stores information about User posts - materialized view", "MySQL");
     usersQueryStore.addTags(DATASTORE_TAG);
 
     // ## Bus ##
@@ -110,7 +110,7 @@ public class DocumentationApplication {
     dynamicViewCreateUsers.add(usersQueryService, usersQueryStore);
 
     // ### Dynamic view - Query users ###
-    DynamicView dynamicViewQueryUsers = views.createDynamicView(mySoftwareSystem, "Query Users", "This diagram shows what happens when a user query users.");
+    DynamicView dynamicViewQueryUsers = views.createDynamicView(mySoftwareSystem, "Query User", "This diagram shows what happens when a user query users.");
     dynamicViewQueryUsers.add(user, uiApplication);
     dynamicViewQueryUsers.add(uiApplication, apiGateway);
     dynamicViewQueryUsers.add(apiGateway, "Consume users rest API", usersQueryService);

@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 @Configuration
 @EnableJpaRepositories("com.believe.query.users.repository")
-@EntityScan({"org.axonframework", "com.believe.query.users.domain"})
+@EntityScan({"org.axonframework", "com.believe.api.users.domain"})
 public class JpaDataConfiguration {
 }
