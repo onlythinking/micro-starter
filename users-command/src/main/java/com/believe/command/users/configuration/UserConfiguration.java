@@ -2,6 +2,7 @@ package com.believe.command.users.configuration;
 
 import com.believe.command.users.aggregate.UserAggregate;
 import com.believe.command.users.aggregate.UserCommandHandler;
+import com.believe.command.users.client.UsersQueryServiceClient;
 import org.axonframework.eventhandling.EventBus;
 import org.axonframework.spring.config.AxonConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,11 @@ public class UserConfiguration {
   @Autowired
   private EventBus eventBus;
 
+  @Autowired
+  private UsersQueryServiceClient usersQueryClient;
+
   @Bean
   public UserCommandHandler userCommandHandler() {
-    return new UserCommandHandler(axonConfiguration.repository(UserAggregate.class), eventBus);
+    return new UserCommandHandler(axonConfiguration.repository(UserAggregate.class), eventBus, usersQueryClient);
   }
 }

@@ -1,14 +1,14 @@
 package com.believe.command.users.web;
 
-import com.believe.api.users.domain.User;
 import com.believe.api.users.model.UserId;
-import com.believe.command.users.client.UsersQueryServiceClient;
 import com.believe.command.users.command.*;
 import com.believe.command.users.web.dto.UserDto;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -22,14 +22,6 @@ public class UserCommandController {
 
   @Autowired
   private CommandGateway commandGateway;
-
-  @Autowired
-  private UsersQueryServiceClient usersQueryClient;
-
-  @GetMapping("/t/{username}")
-  public Resource<User> tt(@PathVariable("username")String username) {
-    return usersQueryClient.findByUsername(username);
-  }
 
   @PostMapping("/create")
   public void create(@Valid @RequestBody UserDto userDto) {

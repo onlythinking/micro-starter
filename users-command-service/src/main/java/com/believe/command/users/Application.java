@@ -1,17 +1,17 @@
 package com.believe.command.users;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
-import org.springframework.cloud.netflix.feign.FeignFormatterRegistrar;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
-import org.springframework.format.FormatterRegistry;
-import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 
+import javax.annotation.PostConstruct;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -23,20 +23,16 @@ import java.net.UnknownHostException;
 @Slf4j
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
+@EnableHypermediaSupport(type = {EnableHypermediaSupport.HypermediaType.HAL})
 @EnableFeignClients
 public class Application {
 
-  @Bean
-  public FeignFormatterRegistrar localDateFeignFormatterRegistrar() {
-    return new FeignFormatterRegistrar() {
-      @Override
-      public void registerFormatters(FormatterRegistry formatterRegistry) {
-        DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
-        registrar.setUseIsoFormat(true);
-        registrar.registerFormatters(formatterRegistry);
-      }
-    };
+  @Autowired
+  private ObjectMapper objectMapper;
+
+  @PostConstruct
+  public void registerModule(){
+    objectMapper.registerModule(new JavaTimeModule());
   }
 
   public static void main(String... args) throws UnknownHostException {

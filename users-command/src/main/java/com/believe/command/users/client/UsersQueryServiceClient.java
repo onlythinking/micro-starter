@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author Li Xingping
  */
-@FeignClient(name = "query-users")
+@FeignClient(name = "query-users", decode404 = true)
 public interface UsersQueryServiceClient {
 
   @RequestMapping(method = RequestMethod.GET, value = "/users/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
