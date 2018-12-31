@@ -36,7 +36,7 @@ docker stack deploy -c docker/docker-compose-aliyun-swui.yml micro-starter
 * ![Admin server](https://github.com/sky233/micro-starter/blob/master/slides/adminserver.png "Admin server")
 
 ## 在线示例
-  * [Api docs](https://sky233.github.io/micro-starter/1.0)
+  * [Api docs](https://onlythinking.github.io/micro-starter/1.0)
    
 ## 参考文献
   * [Micro Services](http://microservices.io/patterns/microservices.html)
